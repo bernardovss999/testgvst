@@ -5,8 +5,15 @@ import { ALTURA, LARGURA, gerarPdfNaPagina, nomeDoArquivo } from "./media-kit-co
 
 let navegador = null; // reaproveitado enquanto a função estiver "quente"
 
+// O @sparticuz/chromium só extrai as bibliotecas do sistema (libnss3...) quando reconhece a AWS Lambda pelas
+// variáveis abaixo; a Vercel roda na Lambda (Amazon Linux 2023) mas não as define, e o Chromium não abria.
+export function ambienteDaVercel(env) {
+  if (!env.AWS_EXECUTION_ENV && !env.AWS_LAMBDA_JS_RUNTIME) env.AWS_LAMBDA_JS_RUNTIME = "nodejs22.x";
+}
+
 async function abrirNavegador() {
   if (navegador && navegador.connected) return navegador;
+  ambienteDaVercel(process.env);
   const { default: chromium } = await import("@sparticuz/chromium");
   const { default: puppeteer } = await import("puppeteer-core");
   navegador = await puppeteer.launch({

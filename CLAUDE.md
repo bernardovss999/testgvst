@@ -48,6 +48,7 @@ Site estático (HTML/CSS/JS puro) + uma rota `/api/seguidores` para o contador a
 - Testes em `tests/mobile.test.js` (320/360/390/430px: sem vazamento lateral, toque ≥ 44px, texto ≥ 11px, carrosséis, barra fixa, autoplay do fundo, player).
 - `npm test` roda com `--test-concurrency=2` para não estourar tempo em máquinas lentas.
 - Pedidos de 29/10 (depois de ver no iPhone): "Publis" no menu da home abre `publis.html` (todas as publis), não a faixa `#trabalhos`; a primeira tela do celular é só o topo (no Safari a página aparece atrás da barra de baixo, então a faixa escura das marcas ganha `100lvh - 100svh` de sobra embaixo, ≤ 960px); rótulos da faixa de seguidores quebram em duas linhas no celular (≤ 640px, `text-wrap: balance`) em vez de cortar. Regressões: `menu-publis-leva-para-a-home`, `topo-mostra-a-secao-seguinte-no-iphone`, `rotulo-seguidores-somados-cortado`.
+- Barra de baixo do Safari (30/10): o iOS 26 ignora `theme-color` e pinta a barra com o fundo da página (claro), o que deixava uma tira branca sob a faixa escura das marcas. `#barra-escura` (fixo, 8px, só iOS via `@supports (-webkit-touch-callout: none)`) fica ativo enquanto a faixa das marcas está embaixo da tela (`main.js`), e o Safari pinta a barra escura. Regressão: `barra-do-safari-clara-sob-faixa-escura`. Só dá para conferir no iPhone de verdade.
 
 ## Reunião de 29/10 (pendências)
 - Cupom da Tuyo GVST10 (10% no site) ativo; falta o link da loja para o botão "Ir pra loja".

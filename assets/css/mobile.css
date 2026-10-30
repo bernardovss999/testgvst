@@ -579,3 +579,13 @@
   .faixa__ico { align-self: center; }
   .faixa__info { justify-content: flex-end; }
 }
+/* Safari do iPhone (iOS 26) ignora o theme-color e pinta a barra de baixo com a cor do fundo da página (clara),
+   a não ser que um elemento fixo encoste na borda de baixo: este fica escuro enquanto a faixa das marcas está
+   embaixo da tela (main.js liga/desliga), e a barra continua a faixa em vez de virar uma tira branca */
+.barra-escura { display: none; }
+@supports (-webkit-touch-callout: none) {
+  @media (max-width: 960px) {
+    .barra-escura { position: fixed; left: 0; right: 0; bottom: 0; height: 8px; z-index: 1; background: var(--tinta); pointer-events: none; display: none; }
+    .barra-escura.is-ativa { display: block; }
+  }
+}

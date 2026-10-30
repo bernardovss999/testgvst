@@ -430,6 +430,8 @@
   var seloNum = document.getElementById("performance-num");
   var dock = document.getElementById("dock");
   var contato = document.getElementById("contato");
+  var barraEscura = document.getElementById("barra-escura");
+  var faixaMarcas = document.querySelector(".marcas-topo");
   function nivelPerformance() {
     var max = document.documentElement.scrollHeight - window.innerHeight;
     return max > 0 ? Math.min(100, Math.round((window.scrollY / max) * 100)) : 0;
@@ -448,6 +450,11 @@
       selo.classList.toggle("is-max", pct >= 99);
     }
     if (dock) dock.classList.toggle("is-visivel", passouTopo && !noContato);
+    // Safari do iPhone pinta a barra de baixo com a cor de um elemento fixo na borda: escura enquanto a faixa das marcas está embaixo
+    if (barraEscura && faixaMarcas) {
+      var f = faixaMarcas.getBoundingClientRect();
+      barraEscura.classList.toggle("is-ativa", f.bottom > window.innerHeight * 0.85 && f.top < window.innerHeight);
+    }
   }
   window.addEventListener("scroll", function () {
     if (!pendente) { pendente = true; requestAnimationFrame(atualizarPerformance); }

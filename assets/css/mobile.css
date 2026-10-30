@@ -1,0 +1,563 @@
+/* =====================================================================
+   Camada final: vibe performática (desktop + mobile) e refinamento mobile.
+   Mesma estética: cinzas, tinta, azul GVST, cartões arredondados.
+   ===================================================================== */
+
+/* barra "nível de performance" que enche com a rolagem */
+.performance-barra { position: fixed; top: 0; left: 0; right: 0; height: 4px; z-index: 70; background: transparent; pointer-events: none; }
+.performance-barra span { display: block; height: 100%; width: 100%; transform-origin: 0 50%; transform: scaleX(var(--p, 0)); background: linear-gradient(90deg, var(--azul), #6F8AD6, var(--vivo)); }
+.performance-selo {
+  position: fixed; top: 74px; right: 16px; z-index: 70; pointer-events: none;
+  display: inline-flex; align-items: center; gap: 8px; padding: 7px 12px 7px 8px; border-radius: 999px;
+  background: var(--tinta); color: var(--papel); font-weight: 800; font-size: 12px; text-transform: uppercase; letter-spacing: .04em;
+  box-shadow: 0 10px 24px rgba(21, 21, 21, .25); opacity: 0; transform: translateY(-8px) rotate(-3deg); transition: opacity .3s, transform .3s;
+}
+.performance-selo.is-visivel { opacity: 1; transform: rotate(-3deg); }
+.performance-selo b { background: var(--azul); color: var(--tinta); padding: 2px 8px; border-radius: 999px; font-variant-numeric: tabular-nums; min-width: 46px; text-align: center; }
+.performance-selo.is-max b { background: var(--vivo); color: var(--papel); }
+
+.fonte-kit { font-size: 11px; }
+.dock { display: none; }
+
+@media (max-width: 640px) {
+  :root { --sec: 64px; }
+  .cabeca { margin-bottom: 28px; gap: 16px; }
+  .titulo { font-size: clamp(32px, 10vw, 44px); }
+  .performance-selo { top: auto; bottom: calc(76px + env(safe-area-inset-bottom, 0px)); right: 12px; }
+
+  /* toque confortável: links e botões com pelo menos 44px */
+  .redes a, .topo .marca { min-width: 44px; min-height: 44px; display: inline-flex; align-items: center; justify-content: center; }
+  .video__link, .plat__fonte, .cupom__acoes a, .plat__links a { display: inline-flex; align-items: center; min-height: 44px; }
+  .video__links { gap: 0 16px; margin-top: 0; }
+
+  /* topo */
+  .hero__palco { padding-top: 20px; }
+  .hero__titulo { font-size: clamp(44px, 14.5vw, 64px); }
+  .hero__figura { padding: 34px 0 30px; min-height: 0; }
+  .hero__lede { font-size: 19px; }
+  .hero__ctas { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+  .hero__ctas .btn { padding: 0 12px; }
+  .faixa__item { padding: 16px 0 18px; }
+  .faixa__num { font-size: 22px; }
+  .ticker { padding: 12px 0; }
+  .ticker__trilho span { font-size: 22px; gap: 18px; padding-right: 18px; }
+
+  /* links: botão da rede ao lado do nome, sem sobrepor */
+  .redes-grandes { gap: 12px; }
+  .rede-card { grid-template-columns: auto minmax(0, 1fr) auto; padding: 18px; border-radius: 20px; }
+  .rede-card__cta { position: static; grid-column: 3; grid-row: 1 / span 2; align-self: center; }
+  .rede-card__nome { font-size: 17px; }
+  .rede-card__num { margin-top: 14px; }
+  .rede-card__num span { font-size: 26px; }
+  .cupons { gap: 12px; }
+  .cupom__corpo { padding: 14px 16px; }
+  .cupom__codigo span { font-size: 24px; }
+  .mais-links { gap: 12px; }
+  .mais-links a { min-height: 170px; padding: 14px; border-radius: 18px; }
+  .ml__t { font-size: 16px; }
+  .ml__d { font-size: 12px; }
+
+  /* personagem */
+  .personagem__titulo { margin-bottom: 28px; }
+  .monte { padding: 20px; border-radius: 22px; }
+  .item { font-size: 14px; padding-right: 14px; }
+
+  /* vídeos em carrossel deslizante, com o próximo aparecendo (dica de que continua) */
+  .grade-videos, .grade-videos--4, .galeria {
+    display: grid; grid-auto-flow: column; grid-template-columns: none; gap: 12px;
+    overflow-x: auto; scroll-snap-type: x mandatory; overscroll-behavior-x: contain;
+    margin-right: calc(var(--gutter) * -1); padding-right: var(--gutter); padding-bottom: 6px; scrollbar-width: none;
+  }
+  .grade-videos, .grade-videos--4 { grid-auto-columns: 62%; }
+  .galeria { grid-auto-columns: 70%; }
+  .grade-videos::-webkit-scrollbar, .marca__videos::-webkit-scrollbar, .galeria::-webkit-scrollbar { display: none; }
+  .grade-videos > li, .galeria > figure { scroll-snap-align: start; }
+  .galeria figure:nth-child(2) { transform: none; }
+  .video__t { font-size: 15px; }
+
+  /* números */
+  .plat { padding: 22px; border-radius: 20px; gap: 14px; }
+  .plat__num { font-size: 52px; }
+  .soma { border-radius: 20px; }
+  .soma__num { font-size: clamp(54px, 17vw, 76px); }
+
+  /* publis: cabeçalho compacto (logo + nome lado a lado) e vídeos menores */
+  .letreiro { padding: 14px 0; }
+  .letreiro__trilho { gap: 40px; padding-right: 40px; }
+  .publi-marca { padding: 18px 0 18px 18px; gap: 16px; }
+  .marca__info { display: grid; grid-template-columns: auto minmax(0, 1fr); column-gap: 14px; align-items: center; padding-right: 18px; }
+  .marca__info .publi__logo { grid-row: 1 / span 2; margin: 0; height: 52px; max-width: 110px; }
+  .marca__info .publi__logo--icone { height: 56px; }
+  .marca__nome { font-size: 20px; }
+  .marca__cat { margin-top: 2px; font-size: 11px; }
+  .marca__desc, .marca__resumo { grid-column: 1 / -1; }
+  .marca__desc { margin-top: 12px; font-size: 14px; }
+  .marca__resumo { margin-top: 10px; justify-self: start; }
+  .marca__videos { grid-auto-columns: 46%; margin-right: 0; padding-right: 18px; gap: 10px; }
+  .marca__videos .video__t { font-size: 14px; }
+  .marca__videos .video__meta { font-size: 12px; }
+
+  /* audiência: mapa centralizado e inteiro */
+  .mapa { max-width: 300px; margin: 20px auto 0; }
+  .mapa figcaption { right: 0; bottom: 8%; }
+
+  /* sobre */
+  .sobre__foto { max-width: 320px; margin: 0 auto; }
+  .galeria figcaption { font-size: 15px; }
+
+  /* contato e espaço para a barra fixa */
+  .contato__titulo { font-size: clamp(38px, 11vw, 52px); }
+  .rodape { padding-bottom: 84px; }
+
+  /* barra fixa: redes + proposta sempre à mão */
+  .dock {
+    position: fixed; left: 12px; right: 12px; bottom: calc(12px + env(safe-area-inset-bottom, 0px)); z-index: 60;
+    display: flex; align-items: center; gap: 6px; padding: 6px; border-radius: 999px;
+    background: rgba(21, 21, 21, .92); -webkit-backdrop-filter: blur(10px); backdrop-filter: blur(10px);
+    box-shadow: 0 14px 30px rgba(21, 21, 21, .3); transform: translateY(150%); transition: transform .35s cubic-bezier(.2, .8, .2, 1);
+  }
+  .dock.is-visivel { transform: none; }
+  .dock a { display: inline-flex; align-items: center; justify-content: center; width: 44px; height: 44px; border-radius: 50%; color: var(--papel); }
+  .dock a .ico { width: 21px; height: 21px; }
+  .dock .dock__cta { flex: 1; width: auto; border-radius: 999px; background: var(--azul); color: var(--tinta); font-weight: 800; font-size: 14px; text-transform: uppercase; letter-spacing: .03em; text-decoration: none; }
+}
+
+@media (max-width: 360px) {
+  .hero__ctas { grid-template-columns: minmax(0, 1fr); }
+  .marca__videos { grid-auto-columns: 58%; }
+  .grade-videos, .grade-videos--4 { grid-auto-columns: 72%; }
+  .rede-card__cta { padding: 7px 10px; font-size: 12px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .performance-selo, .dock { transition: none; }
+}
+
+/* correções apontadas pelos testes de toque e de largura */
+@media (max-width: 640px) {
+  .menu-btn { width: 44px; }
+  .contato__email, .contato__alt a, .rodape a { display: inline-flex; align-items: center; min-height: 44px; }
+  .contato__alt { margin-top: 4px; }
+  .monte__t { font-size: clamp(18px, 6.4vw, 24px); max-width: 100%; overflow-wrap: anywhere; }
+}
+@media (max-width: 640px) {
+  .menu-btn { flex: none; }
+  .topo__inner { gap: 8px; }
+  .redes { gap: 0; }
+}
+@media (max-width: 640px) {
+  /* palavras inteiras: nada de quebrar "PERFORMÔMETRO" no meio */
+  .monte__t { font-size: clamp(17px, 5.6vw, 24px); overflow-wrap: normal; white-space: nowrap; }
+  .hero__ctas .btn, .cupom__copiar, .dock__cta, .rede-card__cta { white-space: nowrap; }
+  .hero__ctas .btn { font-size: 13px; letter-spacing: .01em; }
+}
+
+/* =====================================================================
+   Pedidos do vídeo: topo mais baixo + "Marcas que já colaboramos"
+   logo abaixo dos números (prova social antes dos links).
+   ===================================================================== */
+.hero__palco { min-height: clamp(460px, calc(100svh - 64px - 230px), 640px); padding-top: clamp(20px, 2.6vw, 36px); }
+.hero__texto-col { padding-bottom: clamp(20px, 2.6vw, 36px); }
+.hero__figura { min-height: 0; padding: 28px 0 24px; }
+.retrato { width: min(330px, 70%); }
+.hero__titulo { font-size: clamp(46px, 6.6vw, 96px); }
+.faixa__item { padding: 16px 0 18px; }
+
+.marcas-topo { background: var(--tinta); color: var(--papel); padding: 22px 0 26px; overflow: hidden; }
+.marcas-topo__cabeca { display: flex; align-items: center; justify-content: space-between; gap: 16px; margin-bottom: 18px; flex-wrap: wrap; }
+.marcas-topo__titulo {
+  display: inline-flex; align-items: center; gap: 10px; margin: 0;
+  font-weight: 900; text-transform: uppercase; font-size: clamp(18px, 2vw, 26px); line-height: 1; font-variation-settings: "wdth" 118;
+}
+.marcas-topo__ver {
+  display: inline-flex; align-items: center; min-height: 44px; padding: 0 18px; border-radius: 999px;
+  background: var(--azul); color: var(--tinta); font-weight: 800; font-size: 13px; text-transform: uppercase; letter-spacing: .03em; text-decoration: none;
+  transition: transform .2s;
+}
+.marcas-topo__ver:hover { transform: scale(1.04); }
+.marcas-topo .letreiro { border: 0; padding: 0; margin: 0; }
+.marcas-topo .letreiro__trilho { gap: 14px; padding-right: 14px; align-items: stretch; }
+.marcas-topo .letreiro__trilho li {
+  display: grid; place-items: center; height: 72px; min-width: 150px; padding: 0 22px; border-radius: 18px; background: var(--papel);
+  transform: rotate(var(--g, 0deg)); transition: transform .3s;
+}
+.marcas-topo .letreiro__trilho li:nth-child(odd) { --g: -1.5deg; }
+.marcas-topo .letreiro__trilho li:nth-child(3n) { --g: 1.5deg; }
+.marcas-topo .letreiro__trilho li:hover { transform: rotate(0) scale(1.06); }
+.marcas-topo .letreiro__logo { opacity: 1; height: 34px; }
+.marcas-topo .letreiro__logo--icone { height: 46px; }
+
+@media (max-width: 640px) {
+  .hero__palco { min-height: 0; }
+  .hero__figura { padding: 26px 0 22px; }
+  .retrato { width: min(300px, 72vw); }
+  .marcas-topo { padding: 18px 0 20px; }
+  .marcas-topo__cabeca { margin-bottom: 14px; }
+  .marcas-topo__titulo { font-size: 17px; }
+  .marcas-topo .letreiro__trilho li { height: 60px; min-width: 120px; padding: 0 16px; border-radius: 14px; }
+  .marcas-topo .letreiro__logo { height: 28px; }
+  .marcas-topo .letreiro__logo--icone { height: 38px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .marcas-topo .letreiro__trilho { justify-content: flex-start; padding: 0 var(--gutter); }
+}
+@media (max-width: 640px) {
+  .faixa .rotulo { font-size: 11px; letter-spacing: .03em; line-height: 1.25; }
+}
+
+/* =====================================================================
+   Alinhamento: conteúdo das seções mais para cima (desktop + mobile)
+   ===================================================================== */
+.secao { padding-top: clamp(48px, 5.5vw, 84px); padding-bottom: clamp(64px, 7.5vw, 112px); }
+.secao--links { padding-top: clamp(40px, 4.5vw, 68px); }
+.contato { padding-top: clamp(56px, 6vw, 96px); }
+.cabeca { align-items: flex-start; margin-bottom: clamp(24px, 3vw, 40px); }
+.cabeca .status { align-self: flex-end; }
+.hero__texto-col { align-self: start; padding-top: clamp(12px, 3vw, 48px); }
+.personagem, .audiencia, .sobre, .agencia { align-items: start; }
+.personagem__titulo { margin-bottom: clamp(24px, 3vw, 44px); }
+.rotulo { margin-bottom: 0; }
+.titulo { margin-top: 10px; }
+
+@media (max-width: 640px) {
+  .secao { padding-top: 40px; padding-bottom: 56px; }
+  .secao--links { padding-top: 32px; }
+  .contato { padding-top: 48px; }
+  .cabeca { margin-bottom: 20px; }
+  .hero__texto-col { padding-top: 0; }
+}
+@media (max-width: 960px) {
+  /* no celular o título do "Sobre" vem antes da foto, para a seção começar pelo texto */
+  .sobre__texto { order: -1; }
+}
+
+
+/* menu do celular: o painel desce e as opções entram uma a uma (desktop não muda) */
+@media (max-width: 960px) {
+  .menu-aberto .nav { animation: menu-painel .32s cubic-bezier(.2, .8, .2, 1) backwards; }
+  .menu-aberto .nav a { animation: menu-opcao .44s cubic-bezier(.2, .8, .2, 1) backwards; }
+  .menu-aberto .nav a:nth-child(1) { animation-delay: .06s; }
+  .menu-aberto .nav a:nth-child(2) { animation-delay: .1s; }
+  .menu-aberto .nav a:nth-child(3) { animation-delay: .14s; }
+  .menu-aberto .nav a:nth-child(4) { animation-delay: .18s; }
+  .menu-aberto .nav a:nth-child(5) { animation-delay: .22s; }
+  .menu-aberto .nav a:nth-child(6) { animation-delay: .26s; }
+  .menu-aberto .nav a:nth-child(7) { animation-delay: .3s; }
+  .menu-aberto .nav a:nth-child(8) { animation-delay: .34s; }
+}
+@keyframes menu-painel { from { opacity: 0; transform: translateY(-10px); } }
+@keyframes menu-opcao { from { opacity: 0; transform: translateY(14px); } }
+
+/* =====================================================================
+   Topo proporcional: nome, texto, foto, números e marcas cabem na
+   primeira tela (desktop e celular). Tudo escala com a altura da tela.
+   ===================================================================== */
+.hero__lede { font-weight: 600; font-size: clamp(28px, min(2.9vw, 4.8svh), 46px); line-height: 1.1; color: var(--tinta); font-variation-settings: "wdth" 108; }
+.hero__lede .destaque { font-size: 1.2em; }
+.hero__sub { margin: clamp(8px, 1.2svh, 14px) 0 0; font-size: clamp(16px, 1.35vw, 21px); line-height: 1.35; color: var(--tinta-2); }
+
+@media (min-width: 961px) {
+  .hero { display: flex; flex-direction: column; min-height: calc(100svh - 65px); }
+  .hero__palco { flex: 1 0 auto; min-height: 0; align-items: center; padding-top: clamp(8px, 1.6svh, 20px); }
+  .hero__texto-col { align-self: center; padding-top: 0; padding-bottom: clamp(12px, calc(67svh - 426px), 240px); }
+  .hero__titulo { font-size: clamp(46px, min(6.6vw, 11.5svh), 96px); }
+  .hero__texto { margin-top: clamp(14px, 2.8svh, 36px); }
+  .hero__ctas { margin-top: clamp(14px, 2.8svh, 28px); }
+  .hero__figura { align-self: stretch; padding: clamp(16px, 3svh, 32px) 0; }
+  .retrato { width: min(400px, 70%, calc((100svh - 330px) * .62)); }
+  .faixa__item { padding: clamp(10px, 1.6svh, 16px) 0 clamp(11px, 1.8svh, 18px); }
+  .marcas-topo { padding: clamp(12px, 2svh, 22px) 0 clamp(14px, 2.4svh, 26px); }
+  .marcas-topo__cabeca { margin-bottom: clamp(10px, 1.8svh, 18px); }
+  .marcas-topo .letreiro__trilho li { height: clamp(50px, 7svh, 72px); }
+}
+
+/* celular e tablet: nome em cima; texto à esquerda e foto à direita, como no desktop */
+@media (max-width: 960px) {
+  .hero { display: flex; flex-direction: column; min-height: calc(100svh - 65px); }
+  .hero__palco {
+    flex: 1 0 auto; grid-template-columns: minmax(0, 1.08fr) minmax(0, 1fr); column-gap: clamp(12px, 3vw, 32px); row-gap: clamp(4px, 1.4svh, 16px);
+    align-items: center; align-content: center; padding-top: clamp(10px, 1.8svh, 24px);
+  }
+  .hero__titulo { grid-column: 1 / -1; grid-row: 1; font-size: clamp(38px, min(14.5vw, 7.2svh), 112px); }
+  .hero__texto { grid-column: 1; grid-row: 2; align-self: center; position: relative; z-index: 2; margin: 0; padding: 0; }
+  .hero__figura { grid-column: 2; grid-row: 2; align-self: center; margin: 0; padding: clamp(22px, 3.4svh, 40px) 0 clamp(16px, 2.6svh, 30px); }
+  .retrato { width: min(100%, 30svh, max(118px, calc((100svh - 540px) * .72))); }
+  .vitrine { inset: 0 calc(var(--gutter) * -1) 0 0; }
+  .selo { width: clamp(52px, 13vw, 84px); height: clamp(52px, 13vw, 84px); right: -6px; top: -18px; }
+  .sticker { font-size: 11px; padding: 6px 9px; border-radius: 8px; }
+  .sticker--pov { display: none; }
+  .sticker--conceito { bottom: 4px; right: -4px; }
+  .hero__lede { font-size: clamp(25px, 6.6vw, 46px); }
+  .hero__sub { font-size: clamp(14px, 3.7vw, 20px); }
+  .hero__ctas { display: grid; grid-template-columns: minmax(0, 1fr); gap: 8px; margin-top: clamp(12px, 2svh, 22px); }
+  .hero__ctas .btn { min-height: 46px; padding: 0 10px; }
+  .faixa__item { padding: clamp(9px, 1.4svh, 16px) 0 clamp(10px, 1.6svh, 18px); }
+  .marcas-topo { padding: clamp(12px, 1.8svh, 20px) 0 clamp(14px, 2.2svh, 22px); }
+  .marcas-topo__cabeca { flex-wrap: nowrap; gap: 12px; margin-bottom: clamp(8px, 1.4svh, 14px); }
+  .marcas-topo__titulo { font-size: clamp(14px, 4.1vw, 26px); line-height: 1.1; }
+  .marcas-topo__ver { flex: none; min-height: 44px; padding: 0 14px; font-size: 12px; }
+  .marcas-topo .letreiro__trilho li { height: clamp(48px, 6.6svh, 64px); }
+}
+
+/* =====================================================================
+   Vídeos no fundo do topo inteiro (desktop e celular), desfocados para
+   o nome, o texto, a foto e os números ficarem legíveis por cima.
+   ===================================================================== */
+.hero { position: relative; isolation: isolate; }
+.hero .vitrine {
+  inset: 0; z-index: -2; gap: 12px;
+  opacity: .5; filter: grayscale(.25) blur(4px);
+  -webkit-mask-image: linear-gradient(to bottom, transparent, #000 10%);
+  mask-image: linear-gradient(to bottom, transparent, #000 10%);
+}
+.hero .vitrine__col { gap: 12px; }
+.hero::before { content: ""; position: absolute; inset: 0; z-index: -1; pointer-events: none; background: linear-gradient(90deg, rgba(228, 228, 224, .55), rgba(228, 228, 224, .2) 70%); }
+.marcas-topo { position: relative; z-index: 1; }
+
+/* faixa de seguidores mais compacta */
+.faixa__ico { width: 22px; height: 22px; }
+.faixa__item { gap: 10px; }
+.faixa__info { gap: 3px; }
+.faixa__num { font-size: clamp(18px, 1.55vw, 24px); }
+@media (min-width: 961px) {
+  .faixa__item { padding: clamp(8px, 1.2svh, 12px) 0 clamp(9px, 1.3svh, 13px); }
+  .faixa__item + .faixa__item { padding-left: 18px; }
+}
+@media (max-width: 960px) {
+  .hero::before { background: rgba(228, 228, 224, .4); }
+  .faixa__ico { width: 20px; height: 20px; }
+  .faixa__item { gap: 8px; padding: clamp(7px, 1.1svh, 12px) 0 clamp(8px, 1.2svh, 13px); }
+  .faixa__num { font-size: clamp(17px, 4.6vw, 22px); }
+}
+
+/* logos de "Marcas que já colaboramos" com as cores das marcas */
+.marcas-topo .letreiro__logo, .marcas-topo .letreiro__logo:hover { filter: none; opacity: 1; }
+
+/* =====================================================================
+   Reunião de 29/10: topo sem "O homem performático", links mais
+   largos, publis compactas na home e celular no ritmo de um Reels.
+   ===================================================================== */
+
+/* topo: a frase dos territórios vira o destaque, com o rabisco em "Humor" */
+.hero__lede { font-size: clamp(26px, min(2.6vw, 4.4svh), 42px); line-height: 1.15; max-width: 17ch; }
+.hero__lede .destaque { font-size: 1.22em; margin-right: .04em; }
+@media (max-width: 960px) {
+  .hero__lede { font-size: clamp(20px, 5.4vw, 38px); max-width: none; }
+}
+
+/* links: dois cards largos, mais baixos, para a página subir */
+.mais-links { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+.mais-links a { min-height: clamp(170px, 16vw, 230px); padding: clamp(18px, 2vw, 28px); }
+.ml__t { font-size: clamp(19px, 1.9vw, 28px); line-height: 1.1; }
+.ml__d { font-size: clamp(13px, 1.1vw, 16px); }
+@media (max-width: 640px) {
+  .mais-links a { min-height: 150px; }
+}
+
+/* cupom só aparece quando tiver código (Tuyo) */
+.cupom[hidden] { display: none; }
+@media (min-width: 961px) {
+  .cupons { grid-template-columns: repeat(auto-fit, minmax(340px, 1fr)); }
+}
+
+/* publis na home: um reel de cada marca passando na horizontal e, embaixo, a ficha da marca
+   (logo, nome, categoria, descrição e selo azul), no mesmo visual da página de publis */
+.carrossel {
+  width: 100vw; margin-left: calc(50% - 50vw); overflow: hidden; padding: 10px 0 18px;
+  -webkit-mask-image: linear-gradient(to right, transparent, #000 5%, #000 95%, transparent);
+  mask-image: linear-gradient(to right, transparent, #000 5%, #000 95%, transparent);
+}
+.carrossel__trilho { display: flex; gap: 20px; width: max-content; padding-right: 20px; animation: correr 90s linear infinite; }
+/* não para com o mouse (pedido do cliente); só para quem navega pelo teclado conseguir ler o card em foco */
+.carrossel:has(:focus-visible) .carrossel__trilho { animation-play-state: paused; }
+.publi-card { flex: none; display: flex; width: clamp(220px, 17vw, 260px); }
+.publi-card a { display: flex; flex-direction: column; width: 100%; text-decoration: none; color: var(--tinta); }
+.publi-card__capa {
+  position: relative; display: block; aspect-ratio: 9 / 16; border-radius: 24px; overflow: hidden; background: var(--tinta);
+  transform: rotate(var(--g, 0deg)); transition: transform .35s cubic-bezier(.2, .8, .2, 1), box-shadow .35s;
+}
+.publi-card:nth-child(odd) .publi-card__capa { --g: -1.2deg; }
+.publi-card:nth-child(3n) .publi-card__capa { --g: 1.2deg; }
+.publi-card__capa > img { width: 100%; height: 100%; object-fit: cover; transition: transform .6s cubic-bezier(.2, .8, .2, 1); }
+.publi-card__capa::after { content: ""; position: absolute; inset: 0; background: linear-gradient(to top, rgba(21, 21, 21, .55), transparent 38%); }
+.publi-card__meta {
+  position: absolute; z-index: 1; left: 10px; right: 10px; bottom: 10px; display: flex; align-items: center; gap: 8px;
+  font-weight: 700; font-size: 13px; line-height: 1.2; color: var(--papel);
+}
+.publi-card__play { flex: none; width: 32px; height: 32px; padding: 9px; border-radius: 50%; background: var(--papel); color: var(--tinta); }
+.publi-card__ficha {
+  position: relative; isolation: isolate; overflow: hidden; flex: 1; display: flex; flex-direction: column; align-items: flex-start; gap: 10px;
+  margin-top: 14px; padding: 16px; border-radius: 22px; background: var(--papel); box-shadow: 0 1px 0 rgba(21, 21, 21, .06);
+}
+.publi-card__ficha::before { content: ""; position: absolute; left: -30%; top: -45%; width: 90%; aspect-ratio: 1; border-radius: 50%; z-index: -1; background: radial-gradient(circle, rgba(143, 168, 230, .35), transparent 70%); }
+.publi-card__topo { display: flex; flex-direction: column; align-items: flex-start; gap: 12px; min-width: 0; max-width: 100%; }
+.publi-card__marca, .publi-card__cat { overflow-wrap: anywhere; }
+.publi-card__logo {
+  flex: none; width: auto; height: 50px; max-width: 92px; object-fit: contain; box-sizing: border-box; padding: 8px 10px; border-radius: 14px;
+  background: #fff; box-shadow: 0 6px 16px rgba(21, 21, 21, .08); filter: grayscale(1) contrast(1.1);
+}
+.publi-card__logo--icone { padding: 6px; }
+.publi-card__marca { display: block; font-weight: 800; text-transform: uppercase; font-size: 17px; line-height: 1.05; font-variation-settings: "wdth" 115; }
+.publi-card__cat { display: block; margin-top: 4px; font-weight: 600; font-size: 11px; line-height: 1.25; letter-spacing: .08em; text-transform: uppercase; color: var(--cinza); }
+.publi-card__desc {
+  font-size: 14px; line-height: 1.4; color: var(--tinta-2);
+  display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden;
+}
+.publi-card__resumo { margin-top: auto; padding: 6px 12px; border-radius: 999px; background: var(--azul); font-weight: 700; font-size: 12px; line-height: 1.25; }
+.publi-card a:hover .publi-card__capa, .publi-card a:focus-visible .publi-card__capa { transform: translateY(-6px) rotate(0); box-shadow: 0 18px 34px rgba(21, 21, 21, .22); }
+.publi-card a:hover .publi-card__capa > img { transform: scale(1.05); }
+.carrossel__acao { display: flex; justify-content: center; margin-top: clamp(18px, 2.4vw, 32px); }
+@media (max-width: 640px) {
+  .publi-card { width: 54vw; }
+  .publi-card__ficha { padding: 12px; gap: 8px; }
+  .publi-card__desc { font-size: 13px; }
+  .publi-card__capa { border-radius: 20px; }
+  .carrossel__trilho { gap: 14px; padding-right: 14px; animation-duration: 70s; }
+}
+@media (prefers-reduced-motion: reduce) {
+  /* sem movimento: a faixa vira um carrossel que se desliza com o dedo */
+  .carrossel { overflow-x: auto; scroll-snap-type: x mandatory; scrollbar-width: none; padding-left: var(--gutter); }
+  .carrossel::-webkit-scrollbar { display: none; }
+  .carrossel__trilho [data-clone] { display: none; }
+  .publi-card { scroll-snap-align: start; }
+}
+
+/* página de publis */
+.publis-pagina { padding-top: clamp(28px, 3.5vw, 52px); }
+.publis-pagina .titulo { font-size: clamp(40px, 6vw, 88px); }
+.voltar {
+  display: inline-flex; align-items: center; gap: 6px; min-height: 44px; margin-bottom: clamp(16px, 2vw, 28px);
+  font-weight: 700; font-size: 14px; text-transform: uppercase; letter-spacing: .04em; text-decoration: none;
+}
+.voltar .ico { transform: rotate(180deg); }
+.publi-marca { scroll-margin-top: 84px; }
+.publi-marca:target { box-shadow: 0 0 0 3px var(--azul); }
+
+/* ---------------------------------------------------------------------
+   Celular no ritmo de um Reels: rolagem livre (nada de encaixe travando),
+   tela cheia de informação e de movimento. Atalhos numa coluna à direita,
+   reações subindo como numa live, carrosséis que andam sozinhos e
+   conteúdo que entra com impulso.
+   --------------------------------------------------------------------- */
+@media (max-width: 640px) {
+  /* mais conteúdo por tela */
+  .secao { padding-top: 32px; padding-bottom: 40px; }
+  .secao--links { padding-top: 26px; }
+  .cabeca { margin-bottom: 16px; }
+  .cabeca__apoio { font-size: 14px; }
+  .sobre { gap: 20px; }
+  .grade-videos, .grade-videos--4 { grid-auto-columns: 48%; gap: 10px; }
+  .galeria { grid-auto-columns: 58%; gap: 10px; }
+
+  .dock {
+    left: auto; right: 10px; bottom: calc(14px + env(safe-area-inset-bottom, 0px));
+    flex-direction: column; gap: 10px; padding: 0; border-radius: 0; background: none; box-shadow: none;
+    -webkit-backdrop-filter: none; backdrop-filter: none; transform: translateY(calc(100% + 40px));
+  }
+  .dock a { width: 48px; height: 48px; background: rgba(21, 21, 21, .82); box-shadow: 0 8px 20px rgba(21, 21, 21, .28); -webkit-backdrop-filter: blur(8px); backdrop-filter: blur(8px); }
+  .dock a .ico { width: 22px; height: 22px; }
+  .dock .dock__cta {
+    flex: none; width: 48px; height: 48px; padding: 0; overflow: hidden; white-space: nowrap; text-indent: 100%; color: transparent;
+    background: var(--azul) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cg fill='none' stroke='%23151515' stroke-width='1.9' stroke-linejoin='round'%3E%3Crect x='3' y='5' width='18' height='14' rx='2'/%3E%3Cpath d='m3.5 6.5 8.5 6.5 8.5-6.5'/%3E%3C/g%3E%3C/svg%3E") center / 22px no-repeat;
+  }
+  .performance-selo { top: 74px; bottom: auto; right: 12px; }
+  .rodape { padding-bottom: 32px; }
+
+  /* reações subindo da coluna de atalhos, como numa live */
+  .reacoes { position: fixed; right: 10px; bottom: calc(240px + env(safe-area-inset-bottom, 0px)); z-index: 59; width: 48px; height: 0; pointer-events: none; }
+  .reacoes span { position: absolute; left: 50%; bottom: 0; font-size: 26px; line-height: 1; animation: reagir 2.6s cubic-bezier(.2, .8, .3, 1) forwards; }
+}
+@keyframes reagir {
+  0% { opacity: 0; transform: translate(-50%, 0) scale(.4); }
+  15% { opacity: 1; transform: translate(calc(-50% + var(--x1, 0px)), -40px) scale(1.15); }
+  100% { opacity: 0; transform: translate(calc(-50% + var(--x2, 0px)), -260px) scale(.9) rotate(var(--g, 0deg)); }
+}
+
+@media (max-width: 640px) and (prefers-reduced-motion: no-preference) {
+  /* conteúdo entra com impulso: sobe, cresce e ganha foco */
+  .js .revela { transform: translateY(44px) scale(.94); filter: blur(6px); transition: opacity .55s ease, transform .7s cubic-bezier(.2, 1.2, .3, 1), filter .55s ease, scale .45s cubic-bezier(.2, .8, .2, 1); transition-delay: var(--atraso, 0s); }
+  .js .revela.is-visivel { transform: none; filter: none; }
+  /* títulos das seções deslizam da lateral, como legenda de reel */
+  .js .cabeca.revela .titulo, .js .sobre.revela .titulo { transform: translateX(-24px); opacity: 0; transition: transform .7s cubic-bezier(.2, 1.2, .3, 1) .12s, opacity .5s ease .12s; }
+  .js .cabeca.revela.is-visivel .titulo, .js .sobre.revela.is-visivel .titulo { transform: none; opacity: 1; }
+  /* item em foco nos carrosséis automáticos ganha destaque */
+  [data-autodeslize] > * { transition: scale .45s cubic-bezier(.2, .8, .2, 1), opacity .45s; }
+  .js [data-autodeslize] > :not(.is-foco):not(.revela), .js [data-autodeslize] > .revela.is-visivel:not(.is-foco) { scale: .94; opacity: .72; }
+  .rede-card__ico { animation: pulsar 2.4s ease-in-out infinite; }
+}
+@keyframes pulsar { 50% { transform: scale(1.14) rotate(-6deg); } }
+
+/* =====================================================================
+   Faixa de seguidores (29/10): ocupa a largura toda, com vidro bem
+   desfocado, e ícones 3D nas cores de cada rede, pulsando.
+   ===================================================================== */
+.faixa { position: relative; z-index: 0; border-top: 0; }
+.faixa::before {
+  content: ""; position: absolute; z-index: -1; top: 0; bottom: 0; left: 50%; width: 100vw; transform: translateX(-50%);
+  border-top: 1px solid var(--linha-forte); background: rgba(228, 228, 224, .38);
+  /* blur moderado: o vídeo do fundo continua aparecendo passar */
+  -webkit-backdrop-filter: blur(9px) saturate(1.15); backdrop-filter: blur(9px) saturate(1.15);
+}
+/* ícones sem fundo: só o logo de cada rede na cor dela, com volume leve (sombra em camadas) */
+.faixa__ico {
+  position: relative; flex: none; display: grid; place-items: center; width: 26px; height: 26px;
+  filter: drop-shadow(0 1.5px 0 rgba(21, 21, 21, .22)) drop-shadow(0 5px 6px rgba(21, 21, 21, .2));
+}
+.faixa__ico svg { width: 25px; height: 25px; }
+/* Instagram: o contorno do logo recebe o degradê oficial (máscara com o próprio desenho) */
+.faixa__ico--instagram svg { visibility: hidden; }
+.faixa__ico--instagram::before {
+  content: ""; position: absolute; inset: 1px;
+  background: radial-gradient(circle at 30% 107%, #fdf497 0%, #fdf497 5%, #fd5949 45%, #d6249f 60%, #285aeb 90%);
+  -webkit-mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Crect x='3' y='3' width='18' height='18' rx='5.2' fill='none' stroke='%23000' stroke-width='2.2'/%3E%3Ccircle cx='12' cy='12' r='4.1' fill='none' stroke='%23000' stroke-width='2.2'/%3E%3Ccircle cx='17.4' cy='6.6' r='1.3'/%3E%3C/svg%3E") center / contain no-repeat;
+  mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Crect x='3' y='3' width='18' height='18' rx='5.2' fill='none' stroke='%23000' stroke-width='2.2'/%3E%3Ccircle cx='12' cy='12' r='4.1' fill='none' stroke='%23000' stroke-width='2.2'/%3E%3Ccircle cx='17.4' cy='6.6' r='1.3'/%3E%3C/svg%3E") center / contain no-repeat;
+}
+/* TikTok: nota preta com o deslocamento ciano e rosa da marca */
+.faixa__ico--tiktok svg { color: #010101; filter: drop-shadow(-1.6px -1.2px 0 #25f4ee) drop-shadow(1.6px 1.2px 0 #fe2c55); }
+/* YouTube: retângulo vermelho com o play branco */
+.faixa__ico--youtube svg { visibility: hidden; }
+.faixa__ico--youtube::before { content: ""; position: absolute; left: 0; right: 0; top: 4px; bottom: 4px; border-radius: 6px; background: linear-gradient(#ff2a2a, #e00000); }
+.faixa__ico--youtube::after { content: ""; position: absolute; left: 50%; top: 50%; width: 8px; height: 9px; transform: translate(-38%, -50%); background: #fff; clip-path: polygon(0 0, 100% 50%, 0 100%); }
+/* seguidores somados: o grupo no azul GVST */
+.faixa__ico--grupo svg { color: #5d7bd0; }
+@media (prefers-reduced-motion: no-preference) {
+  .faixa__ico { animation: latejar 2.8s ease-in-out infinite; }
+  .faixa__item:nth-child(2) .faixa__ico { animation-delay: .35s; }
+  .faixa__item:nth-child(3) .faixa__ico { animation-delay: .7s; }
+  .faixa__item:nth-child(4) .faixa__ico { animation-delay: 1.05s; }
+}
+@keyframes latejar { 0%, 100% { scale: 1; } 45% { scale: 1.07; } }
+
+/* rótulos em preto e "Seguidores somados ao vivo" numa linha só */
+.faixa .rotulo { color: #000; white-space: nowrap; letter-spacing: .02em; }
+@media (max-width: 960px) {
+  .faixa__ico { width: 24px; height: 24px; }
+  .faixa__ico svg { width: 23px; height: 23px; }
+  .faixa__ico--youtube::before { top: 4px; bottom: 4px; }
+  .faixa .rotulo { font-variation-settings: "wdth" 72; letter-spacing: 0; }
+}
+
+/* acesso ao media kit em PDF (links e contato) */
+.kit-banner {
+  display: flex; align-items: center; gap: 16px; padding: 16px 20px; border-radius: 22px; text-decoration: none;
+  background: var(--tinta); color: var(--papel); transition: transform .3s cubic-bezier(.2, .8, .2, 1), box-shadow .3s;
+}
+.kit-banner:hover { transform: translateY(-3px); box-shadow: 0 14px 28px rgba(21, 21, 21, .22); }
+.kit-banner__selo { flex: none; display: grid; place-items: center; width: 52px; height: 52px; border-radius: 14px; background: var(--azul); color: var(--tinta); font-weight: 900; font-size: 15px; letter-spacing: .04em; transform: rotate(-4deg); }
+.kit-banner__texto { flex: 1; display: flex; flex-direction: column; gap: 2px; min-width: 0; }
+.kit-banner__texto strong { font-weight: 800; font-size: clamp(17px, 1.6vw, 22px); text-transform: uppercase; font-variation-settings: "wdth" 112; }
+.kit-banner__texto span { font-size: 14px; color: #C9C9C3; }
+.kit-banner__seta { flex: none; width: 42px; height: 42px; padding: 10px; border-radius: 50%; background: var(--papel); color: var(--tinta); }
+.contato__kit {
+  display: inline-flex; align-items: center; gap: 8px; min-height: 44px; margin-top: 14px; padding: 0 18px; border-radius: 999px;
+  background: var(--azul); color: var(--tinta); font-weight: 800; font-size: 13px; text-transform: uppercase; letter-spacing: .03em; text-decoration: none;
+}
+.contato__kit .ico { width: 18px; height: 18px; }
+@media (max-width: 640px) {
+  .kit-banner { padding: 14px; gap: 12px; border-radius: 18px; }
+  .kit-banner__selo { width: 44px; height: 44px; font-size: 13px; }
+  .kit-banner__texto span { font-size: 13px; }
+}
+
+/* logos do letreiro levam às publis da marca */
+.letreiro__trilho li > a { display: grid; place-items: center; width: 100%; height: 100%; }

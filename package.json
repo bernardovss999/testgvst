@@ -1,0 +1,22 @@
+{
+  "name": "gustavo-correa-site",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Prévia do site de Gustavo Correa (@gvstavocorrea)",
+  "type": "module",
+  "scripts": {
+    "test": "node --test --test-concurrency=2 \"tests/**/*.test.js\"",
+    "servir": "node tests/servidor.js",
+    "metricas": "node scripts/atualizar-metricas.mjs",
+    "deps": "npm i --prefix \"%LOCALAPPDATA%/gustavo-correa-site-deps\" playwright@1.64.1 axe-core@4 && npx --prefix \"%LOCALAPPDATA%/gustavo-correa-site-deps\" playwright install chromium",
+    "publicar": "node scripts/publicar.mjs"
+  },
+  "devDependencies": {
+    "playwright": "^1.64.1",
+    "axe-core": "^4.10.0"
+  },
+  "dependencies": {
+    "@sparticuz/chromium": "131.0.1",
+    "puppeteer-core": "23.10.4"
+  }
+}

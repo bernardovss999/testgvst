@@ -1,0 +1,5 @@
+{
+  "functions": {
+    "api/media-kit.mjs": { "maxDuration": 60, "memory": 1769 }
+  }
+}

@@ -1,0 +1,61 @@
+{
+  "descricao": "Modelo fixo do media kit em PDF aprovado pelo cliente em 29/10/2026. Toda geração precisa repetir este plano: mesmas páginas, mesmas seções em cada página, mesma escala (tolerância de 0,03). Só os dados mudam (seguidores, métricas, data). Para mudar, só com pedido do cliente: alterar MODELO em assets/js/mediakit.js e regravar este arquivo.",
+  "versao": "2026-10-29",
+  "formato": {
+    "largura": 1440,
+    "altura": 1018,
+    "orientacao": "A4 deitado"
+  },
+  "paginas": [
+    {
+      "secoes": [
+        "inicio"
+      ],
+      "escala": 1
+    },
+    {
+      "secoes": [
+        "links"
+      ],
+      "escala": 1
+    },
+    {
+      "secoes": [
+        "sobre"
+      ],
+      "escala": 0.792
+    },
+    {
+      "secoes": [
+        "personagem"
+      ],
+      "escala": 0.84
+    },
+    {
+      "secoes": [
+        "numeros"
+      ],
+      "escala": 0.982
+    },
+    {
+      "secoes": [
+        "trabalhos"
+      ],
+      "escala": 0.802
+    },
+    {
+      "secoes": [
+        "audiencia"
+      ],
+      "escala": 0.823
+    },
+    {
+      "secoes": [
+        "agencia",
+        "contato",
+        "rodape"
+      ],
+      "escala": 0.817
+    }
+  ]
+}

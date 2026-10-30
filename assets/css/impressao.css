@@ -1,0 +1,86 @@
+/* =====================================================================
+   Media kit em PDF: o próprio site no layout de computador, sem o
+   cabeçalho; no lugar dos botões do topo, "Media kit atualizado" e a data.
+   Vale quando o <html> tem a classe "modo-pdf": na cópia invisível que
+   o mediakit.js fotografa (index.html?pdf=1) e no Ctrl+P do navegador.
+   ===================================================================== */
+@page { size: A4 landscape; margin: 0; }
+
+.modo-pdf, .modo-pdf body { background: var(--fundo); -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+.modo-pdf { scroll-behavior: auto; }
+
+/* sem cabeçalho e sem o que só existe para quem rola a tela */
+.modo-pdf .topo, .modo-pdf .skip, .modo-pdf .performance-barra, .modo-pdf .performance-selo, .modo-pdf .dock,
+.modo-pdf .reacoes, .modo-pdf .kit-banner, .modo-pdf .contato__kit, .modo-pdf .pdf-aviso { display: none !important; }
+
+/* animações já no estado final (entradas, sublinhado desenhado); nada fica pela metade na foto */
+.modo-pdf *, .modo-pdf *::before, .modo-pdf *::after {
+  animation-duration: 1ms !important; animation-delay: 0s !important; animation-iteration-count: 1 !important;
+  transition-duration: 0s !important; transition-delay: 0s !important;
+}
+.modo-pdf .js .revela, .modo-pdf.js .revela { opacity: 1 !important; transform: none !important; filter: none !important; }
+.modo-pdf .rabisco.is-medido path { stroke-dashoffset: 0 !important; }
+
+/* topo com a altura exata da página A4 deitada (1440 x 1018): sem faixa sobrando */
+.modo-pdf .hero { box-sizing: border-box; min-height: 1018px; height: 1018px; }
+.modo-pdf .pdf-atualizado .btn { pointer-events: none; }
+
+/* faixas que passam na tela viram grades completas, sem as cópias do loop */
+.modo-pdf .letreiro__trilho, .modo-pdf .carrossel__trilho { animation: none !important; transform: none !important; width: auto; flex-wrap: wrap; justify-content: center; row-gap: 16px; }
+.modo-pdf .letreiro, .modo-pdf .carrossel { -webkit-mask-image: none; mask-image: none; overflow: visible; }
+.modo-pdf .letreiro__trilho [data-clone], .modo-pdf .carrossel__trilho [data-clone] { display: none !important; }
+.modo-pdf .carrossel { width: auto; margin-left: 0; padding: 0; }
+.modo-pdf .carrossel__trilho { padding: 0; gap: 22px 18px; }
+
+
+/* impressão do navegador (Ctrl+P): blocos não se partem entre folhas */
+@media print {
+  .modo-pdf .publi-card, .modo-pdf .publi-marca, .modo-pdf .plat, .modo-pdf .cupom, .modo-pdf .rede-card, .modo-pdf .mais-links li,
+  .modo-pdf .grade-videos > li, .modo-pdf .galeria figure, .modo-pdf .monte, .modo-pdf .soma, .modo-pdf .contato__topo { break-inside: avoid; }
+}
+
+/* aviso enquanto o PDF é montado (fica na página que a pessoa está vendo) */
+.pdf-aviso {
+  position: fixed; left: 50%; bottom: calc(24px + env(safe-area-inset-bottom, 0px)); z-index: 90; transform: translateX(-50%);
+  display: inline-flex; align-items: center; gap: 10px; max-width: calc(100% - 32px); padding: 12px 18px; border-radius: 999px;
+  background: var(--tinta); color: var(--papel); font-weight: 700; font-size: 14px; box-shadow: 0 14px 30px rgba(21, 21, 21, .3);
+}
+.pdf-aviso__giro { flex: none; width: 18px; height: 18px; border-radius: 50%; border: 2px solid rgba(242, 242, 239, .3); border-top-color: var(--azul); animation: girar .8s linear infinite; }
+
+/* página deitada: publis em 6 por linha para a seção ficar mais larga que alta e encher a página */
+.modo-pdf .publi-card { width: 186px; }
+.modo-pdf .publi-card__desc { -webkit-line-clamp: 2; }
+
+/* o PDF não abre com o título "O homem performático": ele é um dos personagens, não a identidade do Gustavo
+   (ele quer criar outros). Sem o título, o conteúdo da seção cabe numa página só. */
+.modo-pdf .personagem__titulo { display: none; }
+.modo-pdf #personagem .rotulo { margin-bottom: 18px; }
+/* seção do personagem numa página só: texto em cima com os números ao lado, os 5 vídeos numa fileira
+   (o de destaque entra na fileira, ver mediakit.js) e "Além do personagem" embaixo.
+   O Performômetro (jogo de clicar) não faz sentido no papel. */
+.modo-pdf #personagem { padding-top: 44px; padding-bottom: 44px; }
+.modo-pdf #personagem .monte { display: none; }
+.modo-pdf #personagem .personagem { display: block; }
+.modo-pdf #personagem .personagem__texto { display: grid; grid-template-columns: minmax(0, 1.25fr) minmax(0, 1fr); column-gap: 56px; align-items: center; }
+.modo-pdf #personagem .citacao { grid-column: 1; }
+.modo-pdf #personagem .personagem__texto > p { grid-column: 1; }
+.modo-pdf #personagem .personagem__dados { grid-column: 2; grid-row: 1 / span 2; margin: 0; }
+.modo-pdf #personagem .videos-personagem { margin-top: 32px; }
+.modo-pdf #personagem .grade-videos--4 { grid-template-columns: repeat(5, minmax(0, 1fr)); }
+.modo-pdf #personagem .grade-videos .video--destaque { max-width: none; }
+.modo-pdf #personagem .alem { margin-top: 32px; }
+
+/* seções que cabem numa página só no PDF (antes ficavam picadas com sobra) */
+.modo-pdf .galeria figure img { aspect-ratio: 1; object-fit: cover; height: auto; }
+.modo-pdf .galeria figure:nth-child(2) { transform: none; }
+.modo-pdf #trabalhos { padding-top: 48px; padding-bottom: 48px; }
+.modo-pdf .publi-card__capa { aspect-ratio: 1; }
+.modo-pdf .publi-card__desc { display: none; }
+.modo-pdf .mais-vistos { margin-top: 40px; }
+.modo-pdf .mais-vistos .grade-videos { grid-template-columns: repeat(5, minmax(0, 1fr)); }
+/* contato um pouco mais compacto: a MUDAH (seção curta) divide a página com ele */
+.modo-pdf .contato { padding-top: 56px; }
+.modo-pdf #agencia { padding-top: 44px; padding-bottom: 44px; }
+
+/* emoji com o mesmo desenho em qualquer servidor ou aparelho (fonte carregada pelo mediakit.js no modo PDF) */
+.modo-pdf { --f: "Archivo", "Noto Color Emoji", "Helvetica Neue", Arial, sans-serif; }

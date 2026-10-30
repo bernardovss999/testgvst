@@ -1,0 +1,54 @@
+{
+  "atualizadoEm": "2026-10-21T10:22:10.035Z",
+  "plataformas": {
+    "instagram": {
+      "usuario": "gvstavocorrea",
+      "url": "https://www.instagram.com/gvstavocorrea/",
+      "seguidores": {
+        "valor": 112789,
+        "aprox": false
+      },
+      "publicacoes": {
+        "valor": 437,
+        "aprox": false
+      }
+    },
+    "tiktok": {
+      "usuario": "gvstavoccorrea",
+      "url": "https://www.tiktok.com/@gvstavoccorrea",
+      "seguidores": {
+        "valor": 159054,
+        "aprox": false
+      },
+      "curtidas": {
+        "valor": 14304612,
+        "aprox": false
+      },
+      "videos": {
+        "valor": 555,
+        "aprox": false
+      },
+      "visualizacoes": {
+        "valor": 99300000,
+        "aprox": true
+      }
+    },
+    "youtube": {
+      "usuario": "gvstavocorrea",
+      "canalId": "UCPj8ZzMbaGdAbGOu11yjKqQ",
+      "url": "https://www.youtube.com/@gvstavocorrea",
+      "inscritos": {
+        "valor": 6000,
+        "aprox": true
+      },
+      "visualizacoes": {
+        "valor": 390381,
+        "aprox": false
+      },
+      "videos": {
+        "valor": 80,
+        "aprox": false
+      }
+    }
+  }
+}

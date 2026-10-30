@@ -3,6 +3,7 @@
    Instrument Serif aparece só na palavra "performático" do topo. */
 
 :root {
+  color-scheme: only light; /* mesmo visual no modo claro e no escuro do aparelho */
   --fundo: #E4E4E0;
   --fundo-2: #D9D9D4;
   --papel: #F2F2EF;

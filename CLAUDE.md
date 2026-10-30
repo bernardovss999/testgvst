@@ -10,6 +10,8 @@ Site estático (HTML/CSS/JS puro) + uma rota `/api/seguidores` para o contador a
 - Ordem atual (29/10): topo com números → marcas → links → sobre ("Vivências e umas bobeiras") → personagem → números ao vivo → publis → audiência → agência → contato.
 - Contador: soma de seguidores das três redes, ao vivo, via contadores públicos (Mixerno.Space, Livecounts.io, SocialCounts). NÃO usar tokens/APIs oficiais.
 
+- Visual único (pedido de 30/10): igual com o aparelho no modo claro ou escuro, desktop e celular. `<meta name="color-scheme" content="only light">` nas duas páginas + `color-scheme: only light` no `:root` desligam o escurecimento automático do navegador. Não criar tema escuro. Regressão: `tests/regression/site-escurece-no-modo-escuro.test.js` (compara a tela pixel a pixel com o modo escuro forçado do Chromium).
+
 ## Estrutura
 - `index.html` (home), `publis.html` (página dedicada com todas as publis), `assets/css/style.css`, `assets/js/main.js`.
 - `api/fontes.mjs` (leitura das fontes públicas) e `api/seguidores.mjs` (rota com cache de 15 s).

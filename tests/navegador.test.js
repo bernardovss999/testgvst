@@ -115,7 +115,7 @@ test("menu mobile abre e fecha ao clicar num link", async () => {
   const btn = page.locator("#menu-btn");
   await btn.click();
   assert.equal(await btn.getAttribute("aria-expanded"), "true");
-  await page.locator("#nav a[href='#trabalhos']").click();
+  await page.locator("#nav a[href='#sobre']").click(); // "Publis" agora abre outra página (publis.html)
   assert.equal(await btn.getAttribute("aria-expanded"), "false");
   await page.close();
 });

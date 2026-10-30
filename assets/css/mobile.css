@@ -561,3 +561,21 @@
 
 /* logos do letreiro levam às publis da marca */
 .letreiro__trilho li > a { display: grid; place-items: center; width: 100%; height: 100%; }
+
+/* =====================================================================
+   Pedidos de 29/10 (celular): a primeira tela é só o topo e os rótulos
+   da faixa de seguidores aparecem inteiros.
+   ===================================================================== */
+/* no Safari do iPhone a página aparece também atrás da barra de baixo: a faixa escura das marcas
+   continua por essa área (100lvh - 100svh), em vez de mostrar o começo da seção Links */
+@media (max-width: 960px) {
+  .marcas-topo { padding-bottom: calc(clamp(14px, 2.2svh, 22px) + 100lvh - 100svh); }
+}
+/* rótulo que não cabe numa linha quebra em duas; os números de cada fileira ficam alinhados embaixo */
+@media (max-width: 640px) {
+  .faixa .rotulo { white-space: normal; text-wrap: balance; }
+  .faixa .rotulo .dot { align-self: flex-start; margin-top: calc((1.25em - 7px) / 2); }
+  .faixa__item { align-items: stretch; }
+  .faixa__ico { align-self: center; }
+  .faixa__info { justify-content: flex-end; }
+}

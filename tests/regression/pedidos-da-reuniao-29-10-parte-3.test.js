@@ -113,7 +113,9 @@ for (const [w, h] of [[1920, 970], [1440, 900], [1024, 768], [390, 844], [320, 5
     assert.ok(r.icones.every((c) => c === "rgba(0, 0, 0, 0)"), `ícones com fundo: ${r.icones}`);
     for (const rot of r.rotulos) {
       assert.equal(rot.cor, "rgb(0, 0, 0)", `${rot.texto} não está preto`);
-      assert.ok(rot.linhas <= 1, `${rot.texto} quebrou em ${rot.linhas} linhas`);
+      // uma linha só no computador e no tablet; no celular (≤ 640px) o rótulo pode ir para duas linhas, porque em uma
+      // ele ficava cortado ("...AO VI", pedido de 29/10; ver rotulo-seguidores-somados-cortado.test.js)
+      assert.ok(rot.linhas <= (w <= 640 ? 2 : 1), `${rot.texto} quebrou em ${rot.linhas} linhas`);
       assert.ok(rot.direita <= w + 1, `${rot.texto} vazou da tela`);
     }
     assert.ok(r.rolagem <= w, `rolagem lateral: ${r.rolagem}px`);

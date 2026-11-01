@@ -58,7 +58,7 @@ test("/api/media-kit devolve o PDF pronto (gerado no servidor) com o nome do arq
   const r = await fetch(servidor.url + "api/media-kit");
   assert.equal(r.status, 200);
   assert.equal(r.headers.get("content-type"), "application/pdf");
-  assert.match(r.headers.get("content-disposition"), /filename="media-kit-gustavo-correa-\d{4}-\d{2}-\d{2}\.pdf"/);
+  assert.match(r.headers.get("content-disposition"), /filename="Gustavo Correa Media kit\.pdf"/); // nome padrão desde 01/11
   const pdf = Buffer.from(await r.arrayBuffer());
   assert.ok(pdf.length < 4.5 * 1024 * 1024, `PDF com ${(pdf.length / 1048576).toFixed(1)} MB: a Vercel limita a resposta em 4,5 MB`);
   assert.equal((pdf.toString("latin1").match(/\/Type\s*\/Page[^s]/g) || []).length, modelo.paginas.length);

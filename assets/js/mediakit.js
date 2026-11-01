@@ -370,11 +370,11 @@
     };
   }
 
+  // nome padrão do arquivo (pedido de 01/11), igual ao do servidor (api/media-kit-core.mjs)
   function nomeArquivo() {
-    var d = new Date();
-    var p = function (n) { return String(n).padStart(2, "0"); };
-    return "media-kit-gustavo-correa-" + d.getFullYear() + "-" + p(d.getMonth() + 1) + "-" + p(d.getDate()) + ".pdf";
+    return "Gustavo Correa Media kit.pdf";
   }
+  G.nomeArquivo = nomeArquivo;
 
   function baixar(blob, nome) {
     var url = URL.createObjectURL(blob);

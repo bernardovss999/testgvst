@@ -6,9 +6,10 @@
 export const LARGURA = 1440;
 export const ALTURA = 900;
 
-export function nomeDoArquivo(d = new Date()) {
-  const p = (n) => String(n).padStart(2, "0");
-  return `media-kit-gustavo-correa-${d.getFullYear()}-${p(d.getMonth() + 1)}-${p(d.getDate())}.pdf`;
+// nome padrão do arquivo (pedido de 01/11); a data de atualização vai dentro do PDF, no topo
+export const NOME_DO_ARQUIVO = "Gustavo Correa Media kit.pdf";
+export function nomeDoArquivo() {
+  return NOME_DO_ARQUIVO;
 }
 
 // `pagina` é uma página já aberta em 1440 x 900 (Playwright ou Puppeteer: os dois têm goto/evaluate).

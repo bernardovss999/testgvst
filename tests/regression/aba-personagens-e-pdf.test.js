@@ -104,6 +104,6 @@ test("o botão 'Baixar PDF' da página entrega o PDF do servidor", async () => {
   const download = page.waitForEvent("download", { timeout: 120000 });
   await page.locator("[data-imprimir]").click();
   const arq = await download;
-  assert.match(arq.suggestedFilename(), /^media-kit-gustavo-correa-\d{4}-\d{2}-\d{2}\.pdf$/);
+  assert.equal(arq.suggestedFilename(), "Gustavo Correa Media kit.pdf");
   await page.close();
 });

@@ -351,7 +351,7 @@ button { font: inherit; color: inherit; }
 .secao--noite .video__meta { color: var(--noite-cinza); }
 .secao--noite .video__meta strong { color: var(--noite-txt); }
 .video__link { font-size: 14px; font-weight: 600; text-underline-offset: 4px; align-self: flex-start; margin-top: 4px; }
-.video__link::after { content: " ↗"; }
+.video__link::after { content: " ↗\FE0E"; } /* \FE0E: seta de texto (no iPhone virava emoji azul) */
 
 .grade-videos { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: clamp(16px, 2vw, 28px); }
 .grade-videos--4 { grid-template-columns: repeat(4, minmax(0, 1fr)); }

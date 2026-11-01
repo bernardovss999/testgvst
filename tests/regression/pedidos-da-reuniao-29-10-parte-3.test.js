@@ -174,7 +174,7 @@ for (const [w, h] of [[1440, 900], [390, 844]]) {
   // padrão do media kit: A4 deitado, cada seção começa numa página nova (as altas continuam na seguinte)
   test(`media kit em PDF gerado pelo botão em ${w}px: A4 deitado, seções em páginas próprias, links e sem erros`, async () => {
     const r = await gerarPdf(w, h);
-    assert.match(r.nome, /^media-kit-gustavo-correa-\d{4}-\d{2}-\d{2}\.pdf$/);
+    assert.match(r.nome, /^Gustavo Correa Media kit\.pdf$/); // nome padrão desde 01/11 (nome-do-arquivo-do-media-kit.test.js)
     const secoes = (html.split("<main")[1].split("</main>")[0].match(/\n    <section /g) || []).length;
     // seção curta divide a página com a seguinte (MUDAH + contato), as altas podem continuar na seguinte
     assert.ok(r.paginas >= secoes - 2 && r.paginas <= secoes * 2, `${r.paginas} páginas para ${secoes} seções`);

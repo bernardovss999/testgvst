@@ -1,6 +1,6 @@
 {
-  "descricao": "Modelo fixo do media kit em PDF aprovado pelo cliente em 29/10/2026. Toda geração precisa repetir este plano: mesmas páginas, mesmas seções em cada página, mesma escala (tolerância de 0,03). Só os dados mudam (seguidores, métricas, data). Para mudar, só com pedido do cliente: alterar MODELO em assets/js/mediakit.js e regravar este arquivo.",
-  "versao": "2026-10-29",
+  "descricao": "Modelo fixo do media kit em PDF aprovado pelo cliente em 29/10/2026; versão 2026-11-01 acrescentou Filmes e curtas a 2026-11-01.2 a página só de personagens a 2026-11-01.3 tirou do PDF a seção enxuta da home e a 2026-11-01.4 (padrão novo) usa a seção Personagens do site, com o Performômetro montado (pedidos do cliente). Toda geração precisa repetir este plano: mesmas páginas, mesmas seções em cada página, mesma escala (tolerância de 0,03). Só os dados mudam (seguidores, métricas, data). Para mudar, só com pedido do cliente: alterar MODELO em assets/js/mediakit.js e regravar este arquivo.",
+  "versao": "2026-11-01.4",
   "formato": {
     "largura": 1440,
     "altura": 1018,
@@ -29,7 +29,13 @@
       "secoes": [
         "personagem"
       ],
-      "escala": 0.84
+      "escala": 1
+    },
+    {
+      "secoes": [
+        "filmes"
+      ],
+      "escala": 0.948
     },
     {
       "secoes": [

@@ -1,0 +1,20 @@
+{
+  "_leia": "Fonte única de Filmes e curtas (site e media kit). Ordem: mais recente primeiro (o gerador ordena pela data). status 'aguardando link' = card pronto mas comentado no HTML até o cliente mandar link, data e views. candidatos = só comentário no HTML (TODO confirmar com Zach). Depois de editar: python scripts/gerar-personagens.py",
+  "filmes": [
+    {"codigo": "DfKI9cGhLGf", "titulo": "Truque de Mestre: O Resgate do Amigo Pau Mandado", "nota": "Paródia de Truque de Mestre", "data": "2026-10-31", "views": "71,7 mil views",
+     "creditos": "Roteiro, gravação e edição: Gustavo · Elenco: @brnorodrigues, @g1tahy, @tardite_, @silvaguilherme00, @rodrigolyra_ · Colaboração: @otavio.films, @gou.studios", "status": "publicado"},
+    {"codigo": "De4MiUaxQhm", "titulo": "Making of: Cidade dos Enzos", "nota": "Bastidores do curta", "data": "2026-10-24", "views": "43,1 mil views", "creditos": null, "status": "publicado"},
+    {"codigo": "Dewac9BxpXk", "titulo": "Cidade dos Enzos", "nota": "Paródia de Cidade de Deus · curta de ~13 min", "data": "2026-10-21", "views": "511 mil views", "creditos": null, "status": "publicado"},
+    {"codigo": "DdjXA9pxGUn", "titulo": "Clube da Luta pelo feminismo", "nota": "Paródia de Clube da Luta", "data": "2026-09-21", "views": "213 mil views",
+     "creditos": "Colaboração: @otavio.films, @gou.studios", "status": "publicado"},
+    {"codigo": null, "titulo": "Obsessão", "nota": "Curta", "data": null, "views": null, "creditos": null, "status": "aguardando link"},
+    {"codigo": null, "titulo": "Odisseia", "nota": "Curta", "data": null, "views": null, "creditos": null, "status": "aguardando link"}
+  ],
+  "candidatos": [
+    "https://www.instagram.com/gvstavocorrea/reel/DbtcWueBbOT/ (6 ago 2026, \"3 min é loucura\")",
+    "https://www.instagram.com/gvstavocorrea/reel/DZH3qE0RqRp/ (3 jun 2026)",
+    "https://www.instagram.com/gvstavocorrea/reel/DY1289ERszF/ (27 mai 2026)",
+    "https://www.instagram.com/gvstavocorrea/reel/DYmvop-BvzM/ (21 mai 2026, \"AstéricHouse\")",
+    "https://www.instagram.com/gvstavocorrea/reel/DcV4CxaB5A0/ (22 ago 2026, \"Você precisa de um rebranding, Bru\")"
+  ]
+}

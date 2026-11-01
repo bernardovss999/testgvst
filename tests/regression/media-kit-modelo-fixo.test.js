@@ -112,19 +112,20 @@ test("servidor fora do ar: no iPhone avisa em vez de entregar um PDF quebrado; n
 });
 
 // Bug original: as fontes eram baixadas sem prazo; com a rede engasgada a geração ficava parada para sempre
-// (no servidor e no aparelho). Agora cada download tem prazo e o PDF sai mesmo assim.
-test("Google Fonts sem responder: o PDF termina mesmo assim, dentro do prazo", async () => {
+// (no servidor e no aparelho). Agora cada download tem prazo.
+// Mudança de propósito (30/10, pedido do cliente): sem as fontes do site o PDF não sai mais com letra genérica;
+// a geração termina dentro do prazo com erro claro, e o botão tenta de novo (media-kit-erro-na-primeira-vez).
+test("Google Fonts sem responder: a geração termina dentro do prazo, com erro de fonte (sem PDF com letra errada)", async () => {
   const page = await browser.newPage({ viewport: { width: 1440, height: 900 } });
   await page.goto(servidor.url + "index.html?pdf=1");
   await page.route(/fonts\.(googleapis|gstatic)\.com/, () => {}); // nunca responde
   const t0 = Date.now();
   const r = await page.evaluate(async () => {
-    const blob = await globalThis.GVST.gerarPdfAqui();
-    return { tamanho: blob.size, paginas: globalThis.GVST.relatorioPdf.length, prazo: globalThis.GVST.PRAZO_REDE };
+    const erro = await globalThis.GVST.gerarPdfAqui().then(() => null, (e) => String(e.message));
+    return { erro, prazo: globalThis.GVST.PRAZO_REDE };
   });
   const segundos = (Date.now() - t0) / 1000;
-  assert.ok(r.tamanho > 100000, "PDF gerado");
-  assert.equal(r.paginas, modelo.paginas.length);
+  assert.match(r.erro || "", /fontes do site|prazo esgotado/);
   assert.ok(segundos < r.prazo / 1000 + 25, `levou ${segundos.toFixed(0)} s`);
   await page.close();
 });

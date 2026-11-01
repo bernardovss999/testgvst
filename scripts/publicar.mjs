@@ -8,8 +8,10 @@ import { fileURLToPath } from "node:url";
 import { join } from "node:path";
 
 const RAIZ = fileURLToPath(new URL("..", import.meta.url));
-const PAGINAS = ["index.html", "publis.html"];
-const COPIAR = [...PAGINAS, "assets", "dados", "api"];
+const PAGINAS = ["index.html", "publis.html", "personagens.html"];
+// media-kit.html: página só para baixar o PDF, fora do sitemap e SEMPRE noindex (copiada sem passar pelo prepararHtml)
+const SEMPRE_NOINDEX = ["media-kit.html", "vercel.json"];
+const COPIAR = [...PAGINAS, ...SEMPRE_NOINDEX, "assets", "dados", "api"];
 
 export function prepararHtml(html, dominio) {
   const base = dominio.replace(/\/+$/, "");
@@ -27,6 +29,7 @@ export function sitemap(dominio, hoje = new Date().toISOString().slice(0, 10)) {
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url><loc>${base}/</loc><lastmod>${hoje}</lastmod><changefreq>weekly</changefreq><priority>1.0</priority></url>
   <url><loc>${base}/publis.html</loc><lastmod>${hoje}</lastmod><changefreq>weekly</changefreq><priority>0.8</priority></url>
+  <url><loc>${base}/personagens.html</loc><lastmod>${hoje}</lastmod><changefreq>weekly</changefreq><priority>0.7</priority></url>
 </urlset>
 `;
 }

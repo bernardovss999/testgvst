@@ -244,6 +244,7 @@
   .menu-aberto .nav a:nth-child(6) { animation-delay: .26s; }
   .menu-aberto .nav a:nth-child(7) { animation-delay: .3s; }
   .menu-aberto .nav a:nth-child(8) { animation-delay: .34s; }
+  .menu-aberto .nav a:nth-child(9) { animation-delay: .38s; }
 }
 @keyframes menu-painel { from { opacity: 0; transform: translateY(-10px); } }
 @keyframes menu-opcao { from { opacity: 0; transform: translateY(14px); } }
@@ -588,4 +589,43 @@
     .barra-escura { position: fixed; left: 0; right: 0; bottom: 0; height: 8px; z-index: 1; background: var(--tinta); pointer-events: none; display: none; }
     .barra-escura.is-ativa { display: block; }
   }
+}
+
+/* =====================================================================
+   seção Personagens no tablet e no celular (01/11): título → um vídeo de
+   cada personagem → Performômetro → "Ver todos os personagens" no fim,
+   na largura toda (no computador o botão fica ao lado do título).
+   --------------------------------------------------------------------- */
+@media (max-width: 960px) {
+  #personagem .wrap { display: flex; flex-direction: column; }
+  #personagem .cabeca, #personagem .personagens-linha { display: contents; }
+  #personagem .cabeca > div { order: 1; margin-bottom: 20px; }
+  #personagem .personagens-home { order: 2; }
+  #personagem .monte { order: 3; margin-top: 28px; }
+  #personagem .cabeca > .btn { order: 4; margin-top: 24px; align-self: stretch; }
+}
+@media (max-width: 640px) {
+  /* carrossel: um personagem grande e o próximo aparecendo na borda (dica de que continua) */
+  #personagem .grade-videos.personagens-home { grid-template-columns: none; grid-auto-columns: 60%; gap: 12px; }
+  #personagem .cabeca > div { margin-bottom: 16px; }
+  .persona-card__nome { font-size: 17px; margin-bottom: 10px; }
+  .persona-card .video__info { padding-top: 10px; }
+  .persona-card .video__links { flex-direction: column; gap: 0; }
+  .persona-card .video__link { display: inline-flex; align-items: center; min-height: 44px; }
+  /* Performômetro em cartão: botões em duas colunas, todos do mesmo tamanho e fáceis de tocar */
+  #personagem .monte { margin-top: 24px; padding: 20px 16px 18px; }
+  #personagem .monte__sub { font-size: 14px; margin-top: 10px; }
+  #personagem .monte__itens { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 8px; margin-top: 16px; }
+  #personagem .item { width: 100%; min-height: 48px; padding: 6px 10px 6px 6px; gap: 8px; font-size: 13.5px; line-height: 1.15; text-align: left; --giro: 0deg; }
+  #personagem .item__emoji { flex: none; }
+  #personagem .medidor { margin-top: 22px; }
+  #personagem .medidor__txt { gap: 12px; flex-wrap: nowrap; }
+  #personagem .medidor__txt strong { font-size: 34px; flex: none; }
+  #personagem .comentario { font-size: 14px; }
+  #personagem .cabeca > .btn { margin-top: 20px; }
+}
+@media (max-width: 359px) {
+  #personagem .grade-videos.personagens-home { grid-auto-columns: 70%; }
+  #personagem .item { font-size: 13px; }
+  #personagem .cabeca > .btn { white-space: nowrap; padding: 0 14px; font-size: 13px; letter-spacing: .01em; }
 }

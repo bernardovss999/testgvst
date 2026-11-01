@@ -46,7 +46,9 @@ export function iniciar(porta = 0, opcoes = {}) {
       }
       return;
     }
-    const arquivo = normalize(join(RAIZ, caminho.endsWith("/") ? caminho + "index.html" : caminho));
+    // /media-kit = página de baixar o PDF (na Vercel, rewrite em vercel.json)
+    const rota = caminho === "/media-kit" ? "/media-kit.html" : caminho;
+    const arquivo = normalize(join(RAIZ, rota.endsWith("/") ? rota + "index.html" : rota));
     if (!arquivo.startsWith(normalize(RAIZ))) { res.writeHead(403).end(); return; }
     try {
       const corpo = await readFile(arquivo);

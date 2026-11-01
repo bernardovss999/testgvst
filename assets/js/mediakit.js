@@ -112,6 +112,18 @@
     })).then(function (lista) { return lista.join("\n"); });
   }
 
+  // as mesmas fontes do site, sempre (pedido do cliente): Archivo em tudo e Instrument Serif no destaque do topo
+  var FONTES_DO_SITE = ["Archivo", "Instrument Serif"];
+  G.FONTES_DO_SITE = FONTES_DO_SITE;
+  function conferirFontesCarregadas() {
+    if (!document.fonts) return;
+    var carregadas = Array.from(document.fonts).filter(function (f) { return f.status === "loaded"; })
+      .map(function (f) { return f.family.replace(/["']/g, ""); });
+    var faltam = FONTES_DO_SITE.filter(function (f) { return carregadas.indexOf(f) < 0; });
+    if (faltam.length) throw new Error("fontes do site não carregaram: " + faltam.join(", "));
+  }
+  G.conferirFontesCarregadas = conferirFontesCarregadas;
+
   function fontesEmbutidas() {
     var link = document.querySelector('link[href*="fonts.googleapis.com/css"]');
     var texto = link
@@ -126,7 +138,14 @@
       })
       : Promise.resolve("");
     var nada = function () { return ""; };
-    return Promise.all([texto.catch(nada), emoji.catch(nada)]).then(function (partes) { return partes.join("\n"); });
+    // as fontes do site são obrigatórias: sem elas o PDF sairia com letra genérica, então é erro (o servidor tenta de novo)
+    texto = texto.then(function (css) {
+      var faltam = FONTES_DO_SITE.filter(function (f) { return css.indexOf("font-family: '" + f + "'") < 0; });
+      if (!/url\(data:/.test(css)) faltam = FONTES_DO_SITE;
+      if (faltam.length) throw new Error("fontes do site não embutidas: " + faltam.join(", "));
+      return css;
+    });
+    return Promise.all([texto, emoji.catch(nada)]).then(function (partes) { return partes.join("\n"); });
   }
   G.fontesEmbutidas = fontesEmbutidas;
 
@@ -137,13 +156,16 @@
 
   // uma página por seção do site; o rodapé vai junto com a última (contato)
   // MODELO FIXO DO MEDIA KIT (aprovado pelo cliente em 29/10/2026). Toda geração, em qualquer celular, tablet ou
-  // computador, segue exatamente este plano: 8 páginas A4 deitadas, nesta ordem, cada seção inteira na sua página.
+  // computador, segue exatamente este plano: 9 páginas A4 deitadas, nesta ordem, cada seção inteira na sua página.
   // Só os dados mudam na hora (seguidores e métricas ao vivo, data "Media kit atualizado"); se uma seção crescer, ela
   // encolhe para caber na mesma página, sem reorganizar o documento. Mudar o modelo é decisão do cliente: alterar
   // aqui, subir a versão e regravar tests/modelo/media-kit-modelo.json (o teste de regressão compara com ele).
+  // 01/11/2026 (pedidos do cliente): versão 2026-11-01 trouxe "Filmes e curtas" depois dos personagens; a 2026-11-01.2
+  // trouxe a página só de personagens; a 2026-11-01.3 tirou do PDF a seção da home; a 2026-11-01.4 (padrão novo) volta
+  // a usar a seção Personagens do site (um vídeo de cada personagem + Performômetro) no lugar da página separada (9 páginas).
   var MODELO = {
-    versao: "2026-10-29",
-    paginas: [["inicio"], ["links"], ["sobre"], ["personagem"], ["numeros"], ["trabalhos"], ["audiencia"], ["agencia", "contato", "rodape"]]
+    versao: "2026-11-01.4",
+    paginas: [["inicio"], ["links"], ["sobre"], ["personagem"], ["filmes"], ["numeros"], ["trabalhos"], ["audiencia"], ["agencia", "contato", "rodape"]]
   };
   G.MODELO = MODELO;
 
@@ -264,6 +286,7 @@
   // monta o PDF: A4 deitado, cada seção começa numa página nova, na largura toda, com o fundo da seção e os links
   function gerarPdfAqui(aviso) {
     return prepararPagina()
+      .then(conferirFontesCarregadas)
       .then(function () { return Promise.all(LIBS.map(carregarScript)); })
       .then(fontesEmbutidas)
       .then(function (fontes) {
@@ -319,10 +342,8 @@
     fonteEmoji.rel = "stylesheet";
     fonteEmoji.href = EMOJI_CSS;
     document.head.appendChild(fonteEmoji);
-    // personagem no PDF: o vídeo de destaque entra na fileira dos outros vídeos (seção cabe numa página só)
-    var destaque = document.querySelector("#personagem .video--destaque");
-    var fileira = document.querySelector("#personagem .grade-videos");
-    if (destaque && fileira) fileira.insertBefore(destaque, fileira.firstChild);
+    // Performômetro no papel: montado (todos os itens marcados, 100% homem performático), já que não dá para clicar
+    Array.prototype.forEach.call(document.querySelectorAll("#monte .item[aria-pressed='false']"), function (b) { b.click(); });
     // no lugar de "Enviar proposta" e "Ver links": "Media kit atualizado" e a data, no mesmo formato dos botões
     var ctas = document.querySelector(".hero__ctas");
     if (ctas) {
@@ -404,6 +425,20 @@
   G.navegadorChromium = navegadorChromium;
 
   // o PDF vem pronto do servidor (api/media-kit), sempre no mesmo motor: igual em iPhone, Android e computador
+  // a primeira geração depois de um tempo parado acorda o servidor (≈50 s, perto do limite de 60 s da Vercel) e
+  // pode falhar; a seguinte já sai rápida. Então tentamos de novo sozinhos antes de mostrar qualquer erro.
+  var TENTATIVAS = 3;
+  G.TENTATIVAS = TENTATIVAS;
+  function pedirComTentativas(aviso, n) {
+    n = n || 1;
+    return pedirAoServidor().catch(function (e) {
+      if (n >= TENTATIVAS) throw e;
+      console.warn("media kit: tentativa " + n + " falhou, tentando de novo", e);
+      aviso.texto("Quase lá, finalizando o media kit…");
+      return pedirComTentativas(aviso, n + 1);
+    });
+  }
+
   function pedirAoServidor() {
     var controle = "AbortController" in window ? new AbortController() : null;
     var prazo = setTimeout(function () { if (controle) controle.abort(); }, 90000);
@@ -420,7 +455,7 @@
     ocupado = true;
     var aviso = mostrarAviso();
     aviso.texto("Montando o media kit…");
-    return pedirAoServidor()
+    return pedirComTentativas(aviso)
       .catch(function (e) {
         if (!navegadorChromium()) throw e;
         console.warn("media kit: servidor indisponível, montando aqui", e);

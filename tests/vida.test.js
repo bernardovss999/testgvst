@@ -75,6 +75,7 @@ test("letreiro de marcas tem o conteúdo duplicado para o loop não dar salto", 
   await page.close();
 });
 
+// 01/11: o Performômetro voltou, como 4ª coluna da seção Personagens (ao lado de um vídeo de cada personagem)
 test("jogo do homem performático: cada item sobe o medidor até 100%", async () => {
   const page = await browser.newPage({ viewport: { width: 1440, height: 900 } });
   await page.goto(servidor.url);
@@ -104,3 +105,4 @@ test("frases do medidor seguem os níveis", async () => {
   assert.deepEqual(frases, ["Apenas um cara tranquilo", "Começando a performar", "Começando a performar", "Achei conceito", "Achei conceito", "Bem astéric", "100% homem performático 💆🏾‍♂️"]);
   await page.close();
 });
+

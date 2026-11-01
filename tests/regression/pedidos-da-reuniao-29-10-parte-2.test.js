@@ -72,7 +72,8 @@ test("'Vivências e umas bobeiras' (Sobre) vem antes de 'O personagem', no conte
   assert.ok(html.indexOf('id="sobre"') < html.indexOf('id="personagem"'));
   for (const pagina of [html, publis]) {
     const nav = pagina.split('id="nav"')[1].split("</nav>")[0];
-    assert.ok(nav.indexOf("#sobre") < nav.indexOf("#personagem"), "menu na mesma ordem da página");
+    // 01/11: "Personagens" no menu abre personagens.html (pedido do cliente), na mesma posição
+    assert.ok(nav.indexOf("#sobre") < nav.indexOf("personagens.html"), "menu na mesma ordem da página");
   }
 });
 

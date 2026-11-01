@@ -1,0 +1,394 @@
+{
+  "_leia": "Fonte única dos personagens (site, personagens.html e media kit). Só dados do Instagram @gvstavocorrea (legenda e data públicas, consulta de 01/11/2026); views só quando informadas pelo cliente. status 'confirmar com Zach' = fica fora do site até o cliente confirmar; trocar para 'publicado'. descricao null = pendente (TODO Zach). Depois de editar: python scripts/gerar-personagens.py",
+  "personagens": [
+    {
+      "slug": "homem-performatico",
+      "nome": "Homem performático",
+      "principal": true,
+      "descricao": null,
+      "nota": "Persona astéric/wellness. Na home o bloco dele é escrito à mão em #personagem (Performômetro, destaque, números, grade); aqui fica a lista completa para personagens.html.",
+      "destaque": "DeWxJ65tZM4",
+      "tiktok": [
+        {
+          "id": "7695226015538269448",
+          "ig": "DeWxJ65tZM4",
+          "titulo": "Achei conceito",
+          "views": "1,3 mi views",
+          "mes": "out 2026"
+        },
+        {
+          "id": "7664743304126270727",
+          "titulo": "Apenas um cara tranquilo",
+          "views": "1,7 mi views",
+          "mes": "jul 2026"
+        },
+        {
+          "id": "7673962632218447112",
+          "titulo": "Performance",
+          "views": "1,6 mi views",
+          "mes": "ago 2026"
+        },
+        {
+          "id": "7688493857402555656",
+          "titulo": "Contemplando a arte",
+          "views": "1,4 mi views",
+          "mes": "set 2026"
+        },
+        {
+          "id": "7666535333198089490",
+          "titulo": "A arte respira",
+          "views": "1,4 mi views",
+          "mes": "jul 2026"
+        }
+      ],
+      "videos": [
+        {
+          "codigo": "DfHhmyeRW4q",
+          "titulo": "Hyrox é astéric",
+          "data": "2026-10-30",
+          "views": null,
+          "legenda": "Hyrox é astéric",
+          "status": "publicado"
+        },
+        {
+          "codigo": "Dd6VFpwhvTw",
+          "titulo": "Uma vibe vintage",
+          "data": "2026-09-30",
+          "views": null,
+          "legenda": "uma vibe vintage",
+          "status": "publicado"
+        },
+        {
+          "codigo": "DdtdP4ZRFaY",
+          "titulo": "Imersão cultural, Gitah",
+          "data": "2026-09-25",
+          "views": null,
+          "legenda": "Imersão cultural, Gitah",
+          "status": "publicado"
+        },
+        {
+          "codigo": "DdmFqHkxb1A",
+          "titulo": "Contemplando a arte",
+          "data": "2026-09-22",
+          "views": null,
+          "legenda": "Contemplando a arte",
+          "status": "publicado"
+        },
+        {
+          "codigo": "DdlzNv7R93X",
+          "titulo": "Dia de arte contemporânea na ArtRio",
+          "data": "2026-09-22",
+          "views": null,
+          "legenda": "#Publicidade | Dia de apreciar a arte contemporânea no @artrio_art como um verdadeiro artista plástico contemporâneo astéric vintage Pinterest ref.",
+          "status": "publicado"
+        },
+        {
+          "codigo": "DdWYFw1R2Ss",
+          "titulo": "Obsessão 2: A vida astéric",
+          "data": "2026-09-16",
+          "views": null,
+          "legenda": "Obsessão 2: A vida astéric",
+          "status": "publicado"
+        },
+        {
+          "codigo": "DcySvSBRjm4",
+          "titulo": "Seja bem-vindo à Astéric House",
+          "data": "2026-09-02",
+          "views": null,
+          "legenda": "#publi • Seja bem-vindo à Astéric House! Esse é o meu cantinho vintage, cheio de personalidade e, claro, muita performance. Mas encontrar um lugar para chamar de seu não precisa ser complicado, ficou muito mais fácil.",
+          "status": "publicado"
+        },
+        {
+          "codigo": "DctGsGCxG4S",
+          "titulo": "Eu me mudei, Fer",
+          "data": "2026-08-31",
+          "views": null,
+          "legenda": "Eu me mudei, Fer",
+          "status": "publicado"
+        },
+        {
+          "codigo": "DcLq7ycRjs2",
+          "titulo": "Eu sou movido a arte, Bru",
+          "data": "2026-08-18",
+          "views": null,
+          "legenda": "Eu sou movido a arte, Bru 🍃✊🏾",
+          "status": "publicado"
+        },
+        {
+          "codigo": "DcD-UjVBqQ1",
+          "titulo": "É sobre performar",
+          "data": "2026-08-15",
+          "views": null,
+          "legenda": "É sobre performar",
+          "status": "publicado"
+        },
+        {
+          "codigo": "Db_tSxuhGTn",
+          "titulo": "Performando com o Water Gel",
+          "data": "2026-08-13",
+          "views": null,
+          "legenda": "A verdade é que todo mundo é um pouco performático. Tem gente que performa no look, tem gente que performa no café, tem gente que performa no Brunch.",
+          "status": "publicado"
+        },
+        {
+          "codigo": "Db51RUYB1xE",
+          "titulo": "7 anos do Jappa com Golden Tickets",
+          "data": "2026-08-11",
+          "views": null,
+          "legenda": "Como um homem performático, eu adoro esse clima clean astéric do Jappa 🍃💫💆🏾‍♂️🍣",
+          "status": "publicado"
+        },
+        {
+          "codigo": "Db3S2uKx9Q3",
+          "titulo": "Dia de jogo é sempre tão astéric",
+          "data": "2026-08-10",
+          "views": null,
+          "legenda": "Dia de jogo é sempre tão astéric",
+          "status": "publicado"
+        },
+        {
+          "codigo": "DbwOXYCht4V",
+          "titulo": "Look de frio no RJ",
+          "data": "2026-08-07",
+          "views": null,
+          "legenda": "Como todos sabem no Rj é verão o ano todo e quando faz um friozinho de 22° já queremos montar aquele look ref pinterest astéric. Com o tempo frio e seco, o que não pode faltar na minha Ecobag é @ceravebrasil . O Cerapotão e o Cerapotinho ajudam a restaurar a pele em 1h e mantém hidratada por 100 horas.",
+          "status": "publicado"
+        },
+        {
+          "codigo": "DbYJN7Gh9ET",
+          "titulo": "Eu sou movido a arte",
+          "data": "2026-07-29",
+          "views": null,
+          "legenda": "Eu sou movido a arte",
+          "status": "publicado"
+        },
+        {
+          "codigo": "DbVzDNLBNPX",
+          "titulo": "Cinema é arte",
+          "data": "2026-07-28",
+          "views": null,
+          "legenda": "Cinema é arte",
+          "status": "publicado"
+        },
+        {
+          "codigo": "DbQYeQcBlrB",
+          "titulo": "Apenas um rebranding",
+          "data": "2026-07-26",
+          "views": null,
+          "legenda": "Apenas um rebranding",
+          "status": "publicado"
+        },
+        {
+          "codigo": "DbN1NrMB8Y-",
+          "titulo": "Eu respiro o cinema nacional",
+          "data": "2026-07-25",
+          "views": null,
+          "legenda": "Eu respiro o cinema nacional",
+          "status": "publicado"
+        },
+        {
+          "codigo": "DbIuPePB7hI",
+          "titulo": "Cinema é arte",
+          "data": "2026-07-23",
+          "views": null,
+          "legenda": "Cinema é arte 🖼️ 🍃💫💆🏾‍♂️",
+          "status": "publicado"
+        },
+        {
+          "codigo": "DbCCtdDhMYa",
+          "titulo": "Performando? Sempre",
+          "data": "2026-07-20",
+          "views": null,
+          "legenda": "Performando? Sempre 💆🏾‍♂️💫🍃",
+          "status": "publicado"
+        },
+        {
+          "codigo": "DanHHg9xtGF",
+          "titulo": "A vida tá mais zero glúten",
+          "data": "2026-07-10",
+          "views": null,
+          "legenda": "A vida tá mais zero glúten",
+          "status": "publicado"
+        },
+        {
+          "codigo": "Dakmn9DtU5H",
+          "titulo": "Eu to meio vintage",
+          "data": "2026-07-09",
+          "views": null,
+          "legenda": "Eu to meio vintage",
+          "status": "publicado"
+        },
+        {
+          "codigo": "DaVKTBjha0r",
+          "titulo": "Um dia tão astéric",
+          "data": "2026-07-03",
+          "views": null,
+          "legenda": "Um dia tão astéric",
+          "status": "publicado"
+        },
+        {
+          "codigo": "DYmvop-BvzM",
+          "titulo": "Seja bem-vinde, AstéricHouse",
+          "data": "2026-05-21",
+          "views": null,
+          "legenda": "Seja bem-vinde, AstéricHouse 🍃🤎 (2min de vídeo malz ae glr, me passei",
+          "status": "publicado"
+        },
+        {
+          "codigo": "DYW9CcVBbru",
+          "titulo": "Lifestyle astéric vintage",
+          "data": "2026-05-15",
+          "views": null,
+          "legenda": "Lifestyle astéric vintage 🍃💆🏾‍♂️",
+          "status": "publicado"
+        },
+        {
+          "codigo": "DYCZzsrBgpb",
+          "titulo": "Quanto tempo, Hans",
+          "data": "2026-05-07",
+          "views": null,
+          "legenda": "Quanto tempo, Hans 💆🏾‍♂️🍃💫",
+          "status": "publicado"
+        },
+        {
+          "codigo": "DXtzEF5ATZ3",
+          "titulo": "Rotina bem wellness astéric",
+          "data": "2026-04-29",
+          "views": null,
+          "legenda": "Rotina bem Wellness astéric na  @thesimplerunclub",
+          "status": "publicado"
+        },
+        {
+          "codigo": "DXRrptJjVXF",
+          "titulo": "10h da manhã, que correria",
+          "data": "2026-04-18",
+          "views": null,
+          "legenda": "10h da manhã, que correria 💆🏾‍♂️💫🍃🌿",
+          "status": "publicado"
+        },
+        {
+          "codigo": "DXHY22QDVwo",
+          "titulo": "Você não é Wellness, eu sei disso",
+          "data": "2026-04-14",
+          "views": null,
+          "legenda": "Você não é Wellness, eu sei disso.",
+          "status": "publicado"
+        },
+        {
+          "codigo": "DV3dEteDYc0",
+          "titulo": "Ultimamente eu estou tão Wellness, Fer",
+          "data": "2026-03-14",
+          "views": null,
+          "legenda": "Ultimamente eu estou tão Wellness, Fer",
+          "status": "publicado"
+        },
+        {
+          "codigo": "DU5gkKbDpzT",
+          "titulo": "Eu amo essa folia astéric",
+          "data": "2026-02-18",
+          "views": null,
+          "legenda": "Eu amo essa folia astéric 🥹✊🏾",
+          "status": "publicado"
+        },
+        {
+          "codigo": "DUBHnn2DV1Z",
+          "titulo": "Eles não sabem ser astéric",
+          "data": "2026-01-27",
+          "views": null,
+          "legenda": "Eles não sabem ser astéric 😭",
+          "status": "publicado"
+        },
+        {
+          "codigo": "DTrDOuMDVZL",
+          "titulo": "Bateu saudade da Bahia",
+          "data": "2026-01-18",
+          "views": null,
+          "legenda": "Bateu_saudade_Bahia.MP4|performático.astéric✌🏾",
+          "status": "publicado"
+        }
+      ]
+    },
+    {
+      "slug": "playboy-emitido-a-cria",
+      "nome": "Playboy emitido a cria",
+      "principal": false,
+      "descricao": null,
+      "destaque": "DfFUwQuxrbM",
+      "videos": [
+        {
+          "codigo": "DfFUwQuxrbM",
+          "titulo": "De LEV, di marola",
+          "data": "2026-10-29",
+          "views": null,
+          "legenda": "Toda hora, toda hora to de @levbicicletas di marola",
+          "status": "publicado"
+        },
+        {
+          "codigo": "Daaa32TBDa9",
+          "titulo": "Cria do Morro, tu sabe",
+          "data": "2026-07-05",
+          "views": "267 mil views",
+          "legenda": "Cria do Morro, tu sabe….",
+          "status": "confirmar com Zach"
+        },
+        {
+          "codigo": "DaF9cz3ReoY",
+          "titulo": "Cria é cria",
+          "data": "2026-06-27",
+          "views": "963 mil views",
+          "legenda": "Cria é cria",
+          "status": "confirmar com Zach"
+        },
+        {
+          "codigo": "DZvfUMUBSF2",
+          "titulo": "Essência de cria ntj",
+          "data": "2026-06-18",
+          "views": "494 mil views",
+          "legenda": "Essência de cria ntj",
+          "status": "confirmar com Zach"
+        },
+        {
+          "codigo": "DZNTCz1xarJ",
+          "titulo": "Sou cria lá de Bel, pprt",
+          "data": "2026-06-05",
+          "views": "296 mil views",
+          "legenda": "Sou cria lá de Bel, pprt",
+          "status": "confirmar com Zach"
+        },
+        {
+          "codigo": "DY4b37GBZ7I",
+          "titulo": "Eu sou cria né, Nanda",
+          "data": "2026-05-28",
+          "views": "345 mil views",
+          "legenda": "Eu sou cria né, Nanda",
+          "status": "confirmar com Zach"
+        }
+      ]
+    },
+    {
+      "slug": "hetero-top",
+      "nome": "Hétero top",
+      "principal": false,
+      "descricao": null,
+      "destaque": "DeZVxaoxLxG",
+      "videos": [
+        {
+          "codigo": "DeZVxaoxLxG",
+          "titulo": "Neurose alguma, tlg?",
+          "data": "2026-10-12",
+          "views": null,
+          "legenda": "Neurose alguma, tlg?",
+          "status": "publicado"
+        },
+        {
+          "codigo": "DdMA7iRxO4E",
+          "titulo": "Chega desse heterotopísmo, Gitah",
+          "data": "2026-09-12",
+          "views": "217 mil views",
+          "legenda": "Chega desse heterotopísmo, Gitah ✊🏾",
+          "status": "publicado"
+        }
+      ]
+    }
+  ]
+}

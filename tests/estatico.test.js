@@ -9,7 +9,11 @@ import { RAIZ } from "./servidor.js";
 const html = await readFile(join(RAIZ, "index.html"), "utf8");
 // Publis ganharam página própria (reunião de 29/10); a home tem só um reel de cada marca
 const publis = await readFile(join(RAIZ, "publis.html"), "utf8");
-const PAGINAS = { "index.html": html, "publis.html": publis };
+// personagens.html (01/11): todos os personagens com a lista completa de vídeos
+const personagens = await readFile(join(RAIZ, "personagens.html"), "utf8");
+// media-kit.html (01/11): página só para baixar o PDF
+const mediaKit = await readFile(join(RAIZ, "media-kit.html"), "utf8");
+const PAGINAS = { "index.html": html, "publis.html": publis, "personagens.html": personagens, "media-kit.html": mediaKit };
 const existe = (p) => access(join(RAIZ, p)).then(() => true, () => false);
 const idsDe = (h) => [...h.matchAll(/\sid="([^"]+)"/g)].map((m) => m[1]);
 
@@ -42,12 +46,13 @@ for (const [nome, pagina] of Object.entries(PAGINAS)) {
   test(`${nome}: arquivos locais referenciados existem`, async () => {
     const refs = [...pagina.matchAll(/(?:src|href)="(?!https?:|mailto:|#|data:)([^"]+)"/g)].map((m) => m[1].split("?")[0].split("#")[0]);
     assert.ok(refs.length > 5);
-    for (const r of refs) assert.ok(await existe(r), `não encontrado: ${r}`);
+    // api/media-kit é rota do servidor (api/media-kit.mjs), testada em media-kit-modelo-fixo.test.js
+    for (const r of refs) assert.ok(r === "api/media-kit" ? await existe("api/media-kit.mjs") : await existe(r), `não encontrado: ${r}`);
   });
 
   // Miniaturas da vitrine do topo e dos links são decorativas (o texto do link já descreve) e usam alt="" de propósito
   test(`${nome}: toda imagem tem alt, width e height (alt vazio só nas decorativas)`, () => {
-    for (const tag of pagina.match(/<img\b[^>]*>/g)) {
+    for (const tag of pagina.match(/<img\b[^>]*>/g) || []) { // media-kit.html não tem imagem
       if (/class="(tile|deco)"/.test(tag)) assert.match(tag, /\salt=""/, tag);
       else assert.match(tag, /\salt="[^"]+"/, tag);
       assert.match(tag, /\swidth="\d+"/, tag);
@@ -133,7 +138,8 @@ test("publis confirmadas da coletânea estão na página de publis; eventos não
 });
 
 test("vídeo de destaque do personagem é o reel enviado pelo cliente", () => {
-  const destaque = html.split('class="video video--destaque"')[1].split("</article>")[0];
+  // 01/11: na home enxuta o destaque do homem performático é o card dele na seção Personagens
+  const destaque = html.split('id="persona-homem-performatico"')[1].split("</li>")[0];
   assert.match(destaque, /data-instagram="reel\/DeWxJ65tZM4"/);
 });
 

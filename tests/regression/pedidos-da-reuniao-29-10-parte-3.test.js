@@ -29,12 +29,13 @@ test("marcas e publis continuam passando com o mouse em cima", async () => {
   await page.close();
 });
 
-test("menu: Início, Links, Sobre, Personagem, Números, Publis, Audiência", async () => {
-  for (const arq of ["index.html", "publis.html"]) {
+// 01/11: "Personagem" virou "Personagens" e entrou "Filmes" (pedido do cliente; ver personagens-e-filmes.test.js)
+test("menu: Início, Links, Sobre, Personagens, Filmes, Números, Publis, Audiência", async () => {
+  for (const arq of ["index.html", "publis.html", "personagens.html", "media-kit.html"]) {
     const pagina = await readFile(join(RAIZ, arq), "utf8");
     const nav = pagina.split('id="nav"')[1].split("</nav>")[0];
     const itens = [...nav.matchAll(/<a (?!class="nav__cta")[^>]*>([^<]+)</g)].map((m) => m[1]);
-    assert.deepEqual(itens, ["Início", "Links", "Sobre", "Personagem", "Números", "Publis", "Audiência"], arq);
+    assert.deepEqual(itens, ["Início", "Links", "Sobre", "Personagens", "Filmes", "Números", "Publis", "Audiência"], arq);
   }
 });
 
@@ -297,40 +298,43 @@ test("o site leva ao media kit (links, contato e página de publis)", async () =
 });
 
 // Pedido (29/10): o PDF não tem página com o título "O homem performático" — ele não quer ficar preso a esse
-// personagem (vai criar outros). O conteúdo da seção vem numa página só, sem o título e sem o Performômetro.
-test("PDF: personagem sem o título grande, numa página só, com os 5 vídeos na fileira", async () => {
+// personagem (vai criar outros). Desde 01/11 (padrão novo, pedido do cliente) a página Personagens do PDF é a própria
+// seção do site: um vídeo de cada personagem e o Performômetro, que no papel sai montado (100%), sem confete.
+test("PDF: sem o título 'O homem performático'; Personagens numa página só, com o Performômetro montado", async () => {
   const page = await browser.newPage({ viewport: { width: 1440, height: 900 } });
   await page.goto(servidor.url + "index.html?pdf=1");
   await page.evaluate(() => document.fonts.ready);
   const r = await page.evaluate(() => {
     const s = document.getElementById("personagem");
+    const visivel = (sel) => [...document.querySelectorAll(sel)].some((e) => e.offsetHeight > 0);
     return {
-      titulo: getComputedStyle(s.querySelector(".personagem__titulo")).display,
-      jogo: getComputedStyle(s.querySelector(".monte")).display,
+      titulo: visivel(".personagem__titulo") || [...document.querySelectorAll("main h1, main h2, main h3")].some((h) => h.offsetHeight > 0 && /^O homem\s*performático$/i.test(h.textContent.trim())),
+      nivel: document.getElementById("medidor").getAttribute("aria-valuenow"),
+      marcados: document.querySelectorAll('#monte .item[aria-pressed="true"]').length,
+      confete: getComputedStyle(document.getElementById("confete")).display,
       paginas: globalThis.GVST.paginasDoKit().filter((g) => g.includes(s)).length,
-      escala: globalThis.GVST.encaixar(1440, s.offsetHeight).escala,
-      videos: s.querySelectorAll(".grade-videos > .video").length,
-      fileira: new Set([...s.querySelectorAll(".grade-videos > .video")].map((v) => Math.round(v.getBoundingClientRect().top))).size
+      escala: globalThis.GVST.encaixar(1440, s.offsetHeight).escala
     };
   });
-  assert.equal(r.titulo, "none");
-  assert.equal(r.jogo, "none");
+  assert.equal(r.titulo, false);
+  assert.deepEqual([r.nivel, r.marcados, r.confete], ["100", 6, "none"]);
   assert.equal(r.paginas, 1);
   assert.ok(r.escala >= 0.8, `encolheu demais: ${r.escala.toFixed(2)}`);
-  assert.deepEqual([r.videos, r.fileira], [5, 1]);
   await page.close();
 });
 
-test("no site a seção do personagem continua igual (título e Performômetro)", async () => {
-  const page = await browser.newPage({ viewport: { width: 1440, height: 900 } });
+// 01/11 (pedido do cliente): a seção Personagens da home ficou enxuta — sem o título grande "O homem performático",
+// sem Performômetro, só um vídeo de cada personagem.
+test("no site a seção Personagens é enxuta: um vídeo de cada personagem, sem título grande, com o Performômetro ao lado", async () => {
+  const page = await browser.newPage({ viewport: { width: 1440, height: 900 }, reducedMotion: "reduce" });
   await page.goto(servidor.url);
   const r = await page.evaluate(() => ({
-    titulo: getComputedStyle(document.querySelector(".personagem__titulo")).display,
-    jogo: getComputedStyle(document.querySelector("#monte")).display,
-    destaqueNoLugar: !!document.querySelector(".personagem > .video--destaque")
+    titulo: !!document.querySelector(".personagem__titulo"),
+    jogo: !!document.querySelector("#monte"),
+    videos: document.querySelectorAll("#personagem .video").length,
+    fileira: new Set([...document.querySelectorAll("#personagem .video")].map((v) => Math.round(v.getBoundingClientRect().top))).size
   }));
-  assert.notEqual(r.titulo, "none");
-  assert.notEqual(r.jogo, "none");
-  assert.ok(r.destaqueNoLugar);
+  // o Performômetro voltou como 4ª coluna (pedido seguinte de 01/11, ver performometro-ao-lado-dos-personagens.test.js)
+  assert.deepEqual(r, { titulo: false, jogo: true, videos: 3, fileira: 1 });
   await page.close();
 });

@@ -416,6 +416,44 @@ button { font: inherit; color: inherit; }
 .alem__lista strong { font-weight: 700; text-transform: uppercase; font-size: 15px; font-variation-settings: "wdth" 112; }
 .alem__lista span { color: var(--noite-cinza); font-size: 15px; }
 
+/* seção Personagens da home (01/11, enxuta a pedido do cliente): um vídeo de cada personagem, nome em cima;
+   todos os vídeos ficam em personagens.html */
+.persona-card__nome { font-weight: 800; text-transform: uppercase; font-size: clamp(16px, 1.7vw, 24px); line-height: 1; font-variation-settings: "wdth" 112; min-height: 2em; margin-bottom: 14px; overflow-wrap: anywhere; }
+@media (max-width: 359px) { .persona-card__nome { min-height: 3em; } } /* 320px: "Playboy emitido a cria" em 3 linhas */
+/* os 3 personagens + o Performômetro (01/11): no computador o jogo é a 4ª coluna, da altura dos cards;
+   no tablet ele desce, na largura toda; no celular a ordem e o carrossel ficam no fim do mobile.css */
+.personagens-linha { display: grid; grid-template-columns: minmax(0, 1fr); gap: 36px; }
+.personagens-linha .monte { margin-top: 0; }
+.grade-videos.personagens-home { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+@media (min-width: 1181px) {
+  .personagens-linha { grid-template-columns: minmax(0, 3fr) minmax(320px, 1.3fr); gap: clamp(28px, 3vw, 44px); align-items: stretch; }
+  /* o topo da seção usa as mesmas colunas: "Ver todos os personagens" tem a largura do Performômetro, alinhado com ele */
+  #personagem .cabeca { display: grid; grid-template-columns: minmax(0, 3fr) minmax(320px, 1.3fr); column-gap: clamp(28px, 3vw, 44px); align-items: end; }
+  #personagem .cabeca > .btn { width: 100%; }
+  .personagens-linha .monte { display: flex; flex-direction: column; justify-content: space-between; gap: 24px; padding: 28px; }
+  .personagens-linha .monte__t { font-size: clamp(19px, 1.6vw, 23px); white-space: nowrap; align-self: flex-start; }
+  .personagens-linha .monte__itens { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 8px; }
+  .personagens-linha .item { width: 100%; min-height: 58px; padding: 6px 10px 6px 6px; gap: 8px; font-size: 13.5px; line-height: 1.15; text-align: left; --giro: 0deg; }
+  .personagens-linha .item__emoji { flex: none; }
+  .personagens-linha .monte__itens { margin-top: 0; gap: 10px; }
+  .personagens-linha .medidor { margin-top: 0; }
+}
+.btn--claro { color: var(--noite-txt); border-color: var(--noite-txt); }
+.btn--claro:hover { background: var(--noite-txt); color: var(--noite); }
+/* página para baixar o media kit (media-kit.html) */
+.kit-baixar { display: flex; flex-wrap: wrap; gap: 12px; }
+.kit-baixar .btn { cursor: pointer; }
+.kit-baixar__nota { margin-top: 14px; font-size: 14px; color: var(--cinza); }
+.kit-paginas__titulo { margin-top: clamp(48px, 6vw, 80px); }
+.kit-paginas { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 0 40px; counter-reset: pag; border-top: 1px solid var(--linha-forte); }
+.kit-paginas li { counter-increment: pag; display: flex; gap: 14px; padding: 14px 0; border-bottom: 1px solid var(--linha); font-size: 16px; }
+.kit-paginas li::before { content: counter(pag, decimal-leading-zero); font-weight: 800; color: var(--cinza); font-variation-settings: "wdth" 118; }
+@media (max-width: 640px) { .kit-paginas { grid-template-columns: minmax(0, 1fr); } }
+
+/* filmes e curtas: o card de vídeo com a nota (paródia, duração) e os créditos */
+.filme__nota { font-size: 14px; color: var(--tinta-2); }
+.filme__creditos { font-size: 13px; line-height: 1.45; color: var(--cinza); margin-top: 2px; }
+
 /* ---------- números ---------- */
 .status { display: inline-flex; align-items: center; gap: 8px; font-weight: 700; font-size: 14px; letter-spacing: .06em; text-transform: uppercase; color: var(--tinta); }
 .tabela-plat { border-top: 1px solid var(--linha-forte); }
@@ -545,7 +583,7 @@ button { font: inherit; color: inherit; }
 
 /* ---------- responsivo ---------- */
 @media (max-width: 1180px) {
-  .nav { gap: 18px; }
+  .nav { gap: 14px; } /* 01/11: com Personagens e Filmes no menu, 18px estourava a largura em 1024px */
   .botoes-links { grid-template-columns: repeat(2, minmax(0, 1fr)); }
   .grade-videos--4 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
   .plat { grid-template-columns: 140px minmax(0, 1fr) minmax(0, 1.4fr); }

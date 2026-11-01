@@ -51,24 +51,15 @@
 .modo-pdf .publi-card { width: 186px; }
 .modo-pdf .publi-card__desc { -webkit-line-clamp: 2; }
 
-/* o PDF não abre com o título "O homem performático": ele é um dos personagens, não a identidade do Gustavo
-   (ele quer criar outros). Sem o título, o conteúdo da seção cabe numa página só. */
-.modo-pdf .personagem__titulo { display: none; }
-.modo-pdf #personagem .rotulo { margin-bottom: 18px; }
-/* seção do personagem numa página só: texto em cima com os números ao lado, os 5 vídeos numa fileira
-   (o de destaque entra na fileira, ver mediakit.js) e "Além do personagem" embaixo.
-   O Performômetro (jogo de clicar) não faz sentido no papel. */
-.modo-pdf #personagem { padding-top: 44px; padding-bottom: 44px; }
-.modo-pdf #personagem .monte { display: none; }
-.modo-pdf #personagem .personagem { display: block; }
-.modo-pdf #personagem .personagem__texto { display: grid; grid-template-columns: minmax(0, 1.25fr) minmax(0, 1fr); column-gap: 56px; align-items: center; }
-.modo-pdf #personagem .citacao { grid-column: 1; }
-.modo-pdf #personagem .personagem__texto > p { grid-column: 1; }
-.modo-pdf #personagem .personagem__dados { grid-column: 2; grid-row: 1 / span 2; margin: 0; }
-.modo-pdf #personagem .videos-personagem { margin-top: 32px; }
-.modo-pdf #personagem .grade-videos--4 { grid-template-columns: repeat(5, minmax(0, 1fr)); }
-.modo-pdf #personagem .grade-videos .video--destaque { max-width: none; }
-.modo-pdf #personagem .alem { margin-top: 32px; }
+/* Personagens no PDF (01/11, padrão novo): a mesma seção do site em 1440px, um vídeo de cada personagem com
+   o Performômetro na 4ª coluna. Capas estáticas e links clicáveis (o player vira link no PDF); o Performômetro
+   não é clicável no papel, então sai montado (todos os itens, 100%, ver mediakit.js), sem o confete. */
+.modo-pdf #personagem { padding-top: 56px; padding-bottom: 56px; }
+.modo-pdf #personagem .confete { display: none; }
+.modo-pdf #personagem .item { animation: none !important; }
+
+/* filmes e curtas: os 4 cards numa fileira, cabe numa página */
+.modo-pdf #filmes { padding-top: 56px; padding-bottom: 56px; }
 
 /* seções que cabem numa página só no PDF (antes ficavam picadas com sobra) */
 .modo-pdf .galeria figure img { aspect-ratio: 1; object-fit: cover; height: auto; }

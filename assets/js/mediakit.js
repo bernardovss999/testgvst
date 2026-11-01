@@ -90,10 +90,12 @@
     return Object.keys(codigos).map(Number);
   }
 
-  // cada @font-face do Google vem precedido de um comentário (/* latin */, /* [3] */...)
+  // um bloco por @font-face; o comentário que vem antes (/* latin */, /* [3] */...) fica junto, quando existe
+  // (a CSS da Noto Color Emoji vem sem comentário: separar só pelo comentário deixava o PDF sem emoji, 01/11)
   function blocosDeFonte(css) {
-    return css.split(/(?=\/\*[^*]*\*\/\s*@font-face)/).filter(function (b) { return /@font-face/.test(b); });
+    return css.match(/(?:\/\*[^*]*\*\/\s*)?@font-face\s*\{[^}]*\}/g) || [];
   }
+  G.blocosDeFonte = blocosDeFonte;
 
   function cobre(bloco, codigos) {
     var m = bloco.match(/unicode-range:\s*([^;]+);/);
